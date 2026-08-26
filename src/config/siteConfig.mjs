@@ -22,7 +22,7 @@ export const siteConfig = {
   email: null, // TO CONFIRM: service email, example: 'info@domain.ca'
   // Temporary GitHub Pages address while the permanent domain is chosen.
   // Replace with the real domain at launch, then set publicIndexing to true.
-  domain: 'https://officialrevmedia.github.io/totalvac-solutions',
+  domain: 'https://officialrevmedia.github.io/totalvac',
   temporaryDomain: true,
 
   /* Search engine indexing. Kept off while the site sits on a temporary address
