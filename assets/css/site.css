@@ -1062,6 +1062,73 @@ a.card:hover .media img,
   max-width: 42ch;
 }
 
+/* 10b. Marquee band
+   ========================================================================== */
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  background: var(--graphite);
+  border-block: 1px solid var(--line-dark);
+  padding-block: 0.95rem;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-run 42s linear infinite;
+}
+
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__run {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  padding-inline: clamp(0.75rem, 1.6vw, 1.375rem);
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--titanium);
+  white-space: nowrap;
+}
+
+.marquee__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex: none;
+}
+
+@keyframes marquee-run {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee--light {
+  background: var(--warm);
+  border-block-color: var(--line-light);
+}
+
+.marquee--light .marquee__item {
+  color: var(--text-muted);
+}
+
 /* 11. Cards
    ========================================================================== */
 
@@ -1266,6 +1333,67 @@ a.card--dark:hover {
 .surface-ink .process__step p,
 .surface-graphite .process__step p {
   color: var(--text-on-dark-muted);
+}
+
+/* Quote cards, used once real testimonials are approved */
+.quote-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  margin: 0;
+  padding: clamp(1.75rem, 2.4vw, 2.25rem);
+  background: var(--graphite);
+  border: 1px solid var(--line-dark);
+  border-radius: var(--r);
+  position: relative;
+}
+
+.quote-card::before {
+  content: '';
+  position: absolute;
+  top: clamp(1.75rem, 2.4vw, 2.25rem);
+  left: clamp(1.75rem, 2.4vw, 2.25rem);
+  width: 28px;
+  height: 2px;
+  background: var(--blue);
+}
+
+.quote-card blockquote {
+  margin: 1.75rem 0 0;
+}
+
+.quote-card blockquote p {
+  margin: 0;
+  font-size: var(--step-2);
+  line-height: 1.5;
+  color: var(--warm);
+}
+
+.quote-card figcaption {
+  margin-top: auto;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line-dark);
+  display: grid;
+  gap: 0.2rem;
+}
+
+.quote-card__name {
+  font-weight: 600;
+  color: var(--warm);
+  font-size: var(--step-0);
+}
+
+.quote-card__role,
+.quote-card__service {
+  font-size: var(--step--1);
+  color: var(--steel);
+}
+
+.quote-card__service {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: var(--step--2);
+  color: var(--blue);
 }
 
 /* 12. Split panels
@@ -2143,8 +2271,13 @@ a.card--dark:hover {
   }
   .flow-ring__spin,
   .hero__media .media img,
-  .scroll-progress {
+  .scroll-progress,
+  .marquee__track {
     animation: none;
+  }
+  .marquee {
+    mask-image: none;
+    -webkit-mask-image: none;
   }
   .hero__media .media img {
     transform: none;
@@ -2211,6 +2344,85 @@ a.card--dark:hover {
   }
   to {
     transform: scale(1.06) translateY(1.2%);
+  }
+}
+
+/* 24d. Mobile refinements
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .hero__inner {
+    padding-block: clamp(2rem, 8vw, 3rem) clamp(2.5rem, 9vw, 3.5rem);
+  }
+
+  .hero h1 {
+    letter-spacing: -0.03em;
+  }
+
+  .hero__media {
+    border-radius: var(--r);
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero .flow-ring {
+    right: -70px;
+    bottom: -70px;
+    width: 190px;
+  }
+
+  /* Actions go full width so they are easy to hit one handed */
+  .hero__actions .btn,
+  .page-hero__actions .btn,
+  .final-cta__actions .btn,
+  .btn-row > .btn {
+    flex: 1 1 100%;
+  }
+
+  .section-head {
+    margin-bottom: 2.25rem;
+  }
+
+  .card {
+    padding: 1.4rem;
+  }
+
+  .accordion__trigger {
+    font-size: var(--step-1);
+    padding-block: 1.15rem;
+  }
+
+  .marquee__item {
+    letter-spacing: 0.1em;
+  }
+
+  .value-list li {
+    padding-block: 1.5rem;
+  }
+
+  .split {
+    gap: 1.75rem;
+  }
+
+  .spec-panel {
+    padding: 1.35rem;
+  }
+
+  /* Keep the footer readable rather than four cramped columns */
+  .site-footer__inner {
+    gap: 2rem;
+  }
+}
+
+/* Larger tap targets on touch devices without changing the desktop rhythm */
+@media (hover: none) {
+  .nav__link,
+  .site-footer a,
+  .breadcrumbs a {
+    padding-block: 0.35rem;
+  }
+
+  .accordion__trigger {
+    min-height: 56px;
   }
 }
 

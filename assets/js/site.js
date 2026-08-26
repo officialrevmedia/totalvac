@@ -6,6 +6,43 @@
 
   document.documentElement.classList.remove('no-js');
 
+  /* ------------------------------------------------------------- preloader */
+  /* Removed as soon as the page is ready. The CSS animation clears it anyway,
+     so a JavaScript failure never leaves a visitor staring at a black screen.
+     It runs once per browser session, not on every page view. */
+  var preloader = document.getElementById('preloader');
+  if (preloader) {
+    var seen = false;
+    try {
+      seen = window.sessionStorage.getItem('tv-intro') === '1';
+    } catch (error) {
+      seen = false;
+    }
+
+    var clearIntro = function () {
+      preloader.classList.add('is-done');
+      window.setTimeout(function () {
+        if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+      }, 450);
+    };
+
+    if (seen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      preloader.parentNode.removeChild(preloader);
+    } else {
+      try {
+        window.sessionStorage.setItem('tv-intro', '1');
+      } catch (error) {
+        /* private browsing, nothing to do */
+      }
+      if (document.readyState === 'complete') window.setTimeout(clearIntro, 900);
+      else window.addEventListener('load', function () {
+        window.setTimeout(clearIntro, 700);
+      });
+      /* Hard stop, whatever else happens */
+      window.setTimeout(clearIntro, 2200);
+    }
+  }
+
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------------------------------------------------------------- header */
