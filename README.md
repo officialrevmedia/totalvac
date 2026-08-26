@@ -145,6 +145,10 @@ The site targets WCAG 2.2 AA. Semantic landmarks, one H1 per page, skip link, vi
 
 Filled buttons use Deep Blue rather than Electric Blue so white label text clears AA contrast at normal size, measured at 4.98 to 1. Electric Blue remains the accent for links, focus rings, active navigation states and detail on dark surfaces, where it measures 5.74 to 1 against Ink Black. Every colour pairing in the palette was measured, and the lowest passing value on the site is 4.51 to 1.
 
+### Testimonials
+
+`src/content/testimonials.mjs` holds the section. It renders only when `approved` is true and at least one entry exists. Until then the same slot shows three service commitments, which are promises about how the work runs rather than claims about past jobs. Add real quotes with permission, flip the flag, rebuild.
+
 ### Interaction and motion
 
 | Feature | How it works | Without support |
@@ -155,6 +159,8 @@ Filled buttons use Deep Blue rather than Electric Blue so white label text clear
 | Section reveals | Intersection Observer adds a class, cards stagger by position, large images wipe rather than fade | Everything visible immediately |
 | Card pointer light | A soft blue radial highlight follows the pointer across a card | No highlight |
 | Image hover | Photographs scale by three percent over 700ms inside cards and split panels | Static image |
+| Intro screen | Logo on black with a loading bar, once per browser session, cleared on load with a hard stop at 2.2 seconds | CSS clears it at 1.15 seconds with no JavaScript |
+| Service marquee | A slow band of service names under the hero, paused on hover or focus | Static list |
 
 Nothing above blocks reading, shifts text or delays interaction. All of it is switched off under `prefers-reduced-motion`, and the site is fully usable with JavaScript disabled.
 

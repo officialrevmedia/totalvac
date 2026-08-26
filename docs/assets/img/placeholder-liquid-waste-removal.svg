@@ -12,7 +12,6 @@
   <rect x="56" y="52" width="46" height="3" fill="#2D8CFF"/>
   <text x="56" y="94" fill="#F5F4EF" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" letter-spacing="4">PHOTO PLACEHOLDER</text>
   <text x="56" y="158" fill="#73818C" font-family="Inter, system-ui, sans-serif" font-size="15" letter-spacing="3">REQUIRED SHOT</text>
-  <text x="56" y="196" fill="#AEB9C2" font-family="Inter, system-ui, sans-serif" font-size="22">Controlled pump-out in progress:</text>
-    <text x="56" y="228" fill="#AEB9C2" font-family="Inter, system-ui, sans-serif" font-size="22">vacuum hose, coupling and tank at</text>
-    <text x="56" y="260" fill="#AEB9C2" font-family="Inter, system-ui, sans-serif" font-size="22">a clean industrial site</text>
+  <text x="56" y="196" fill="#AEB9C2" font-family="Inter, system-ui, sans-serif" font-size="22">Institutional and Multi-Site</text>
+    <text x="56" y="228" fill="#AEB9C2" font-family="Inter, system-ui, sans-serif" font-size="22">Operations</text>
 </svg>

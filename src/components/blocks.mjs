@@ -157,6 +157,55 @@ export const FinalCTA = ({
   ${flowRing()}
 </section>`;
 
+/** Scrolling descriptor band. Slow, pausable, and static under reduced motion. */
+export const Marquee = ({ items, variant = '' }) => {
+  const run = items
+    .map((item) => `<span class="marquee__item">${item}<span class="marquee__dot" aria-hidden="true"></span></span>`)
+    .join('');
+  return `
+<div class="marquee ${variant}" role="region" aria-label="Services offered">
+  <div class="marquee__track" aria-hidden="true">
+    <div class="marquee__run">${run}</div>
+    <div class="marquee__run">${run}</div>
+  </div>
+  <p class="visually-hidden">${items.join('. ')}.</p>
+</div>`;
+};
+
+/** Testimonials, or the commitments block while none are approved. */
+export const Testimonials = ({ approved, testimonials, commitments }) => {
+  if (approved && testimonials.length) {
+    return `
+<div class="grid grid--3">
+  ${testimonials
+    .map(
+      (item) => `<figure class="quote-card" data-reveal>
+    <blockquote><p>${item.quote}</p></blockquote>
+    <figcaption>
+      <span class="quote-card__name">${item.name}</span>
+      ${item.role || item.company ? `<span class="quote-card__role">${[item.role, item.company].filter(Boolean).join(', ')}</span>` : ''}
+      ${item.service ? `<span class="quote-card__service">${item.service}</span>` : ''}
+    </figcaption>
+  </figure>`
+    )
+    .join('\n  ')}
+</div>`;
+  }
+
+  return `
+<div class="grid grid--3">
+  ${commitments
+    .map(
+      (item, i) => `<div class="card card--dark" data-reveal>
+    <span class="card__index">0${i + 1}</span>
+    <h3>${item.title}</h3>
+    <p>${item.body}</p>
+  </div>`
+    )
+    .join('\n  ')}
+</div>`;
+};
+
 export default {
   SectionHeading,
   Hero,
@@ -170,5 +219,7 @@ export default {
   Notice,
   FAQAccordion,
   PhotoPanel,
+  Marquee,
+  Testimonials,
   FinalCTA
 };

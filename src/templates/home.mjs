@@ -1,7 +1,11 @@
 import { services, maintenanceCard } from '../content/services.mjs';
 import { industries, valuePoints, processSteps, trustCategories, faqs, homeFaqIds } from '../content/site.mjs';
+import { approved as testimonialsApproved, testimonials, commitments } from '../content/testimonials.mjs';
+import { siteConfig } from '../config/siteConfig.mjs';
 import {
   Hero,
+  Marquee,
+  Testimonials,
   SectionHeading,
   TrustStrip,
   ServiceCard,
@@ -71,6 +75,17 @@ ${Hero({
     'TotalVac Solutions provides professional vacuum services for grease traps, catch basins, tanks, sumps, and non-hazardous liquid waste. Clean execution, clear communication, and service built around your site.',
   photo: heroPhoto,
   reassurance: ['Commercial', 'Industrial', 'Property Management', 'Food Service']
+})}
+
+${Marquee({
+  items: [
+    'Grease Trap',
+    'Catch Basin',
+    'Liquid Waste Services',
+    'Tank and Sump Pump-Outs',
+    'Site Dewatering',
+    'Scheduled Maintenance'
+  ]
 })}
 
 ${TrustStrip({
@@ -168,6 +183,21 @@ ${TrustStrip({
       cta: { href: '/about/', label: 'About TotalVac' },
       mediaFirst: true
     })}
+  </div>
+</section>
+
+<section class="section surface-ink">
+  <div class="shell">
+    ${SectionHeading({
+      eyebrow: testimonialsApproved && testimonials.length ? 'WHAT CUSTOMERS SAY' : 'WHAT YOU CAN EXPECT',
+      title: testimonialsApproved && testimonials.length
+        ? 'In their words.'
+        : 'Three things we commit to on every job.',
+      lede: testimonialsApproved && testimonials.length
+        ? null
+        : 'Straight commitments about how the work runs, in place of claims we cannot yet back with a customer name.'
+    })}
+    ${Testimonials({ approved: testimonialsApproved, testimonials, commitments })}
   </div>
 </section>
 

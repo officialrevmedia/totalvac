@@ -8,37 +8,139 @@ export const industries = [
     id: 'restaurants-and-food-service',
     title: 'Restaurants and Food Service',
     short: 'Grease trap service planned around prep, service hours and deliveries.',
-    body: 'Grease traps and commercial kitchen systems need service that works around operating hours, deliveries, staff, and guests. TotalVac coordinates access and scheduling with the realities of a busy food-service site.'
+    photo: 'grease-trap-service',
+    body: 'Grease traps and commercial kitchen systems need service that works around operating hours, deliveries, staff, and guests. TotalVac coordinates access and scheduling with the realities of a busy food-service site.',
+    detail: [
+      'A kitchen cannot stop for a pump-out. Most food-service work happens in a narrow window: after close, before prep, or in the gap between lunch and dinner service. TotalVac plans around that window rather than asking the kitchen to plan around the truck.',
+      'The trap is rarely the only consideration. Loading zones fill up, back doors get blocked, property management controls the gate, and the interceptor may sit under a mat or a parked vehicle. Those details get confirmed before the visit so the crew is not solving them on arrival.'
+    ],
+    requests: [
+      'Grease trap pump-outs on a set interval',
+      'One-time service before an inspection or a busy period',
+      'Coordination around delivery windows and service hours',
+      'Multi-location scheduling under one point of contact'
+    ],
+    planning: [
+      'Preferred window, including after hours where access allows',
+      'Trap location, approximate capacity and access route',
+      'Property rules, gate codes and loading restrictions',
+      'A record of the service date for your own maintenance file'
+    ]
   },
   {
     id: 'property-management-and-condominiums',
     title: 'Property Management and Condominiums',
     short: 'One request line for basins, sumps, pits and tanks across a property.',
-    body: 'One property can contain catch basins, sumps, pits, tanks, and drainage points with different service needs. TotalVac helps property teams organize individual pump-outs and recurring maintenance requests.'
+    photo: 'catch-basin-service',
+    body: 'One property can contain catch basins, sumps, pits, tanks, and drainage points with different service needs. TotalVac helps property teams organize individual pump-outs and recurring maintenance requests.',
+    detail: [
+      'Property teams are usually managing several systems that fail at different rates. The parking lot basins fill with sediment over a season, the mechanical room sump fills on a schedule of its own, and the loading area drain only becomes urgent after a storm.',
+      'Rather than treating each of those as a separate emergency, TotalVac can map what is on the property, propose an interval for each system, and keep the requests running through one point of contact so residents and tenants see as little of the work as possible.'
+    ],
+    requests: [
+      'Catch basin cleaning across a property',
+      'Sump and pit pump-outs in mechanical areas',
+      'Recurring service for known problem points',
+      'A clear record of what was serviced and when'
+    ],
+    planning: [
+      'Which systems are on the property and where they sit',
+      'Access for the vehicle and hose reach to each point',
+      'Resident and tenant notice requirements',
+      'Quiet hours and parking restrictions'
+    ]
   },
   {
     id: 'retail-and-hospitality',
     title: 'Retail and Hospitality',
     short: 'Work windows chosen to protect customer access and the front of house.',
-    body: 'Service should protect customer access and minimize disruption. TotalVac plans around loading areas, parking conditions, building access, and preferred work windows.'
+    photo: 'property-context',
+    body: 'Service should protect customer access and minimize disruption. TotalVac plans around loading areas, parking conditions, building access, and preferred work windows.',
+    detail: [
+      'In retail and hospitality the work is judged partly on how invisible it is. A hose across a main entrance during trading hours is a problem even when the pump-out itself takes twenty minutes.',
+      'TotalVac positions equipment away from customer routes where the site allows it, uses cones to keep the work zone defined, and agrees the window in advance so front of house staff are not surprised.'
+    ],
+    requests: [
+      'Drainage service planned outside customer hours',
+      'Loading area and back of house pump-outs',
+      'Coordination with building and property management',
+      'Work windows that protect guest access'
+    ],
+    planning: [
+      'Trading hours and the preferred service window',
+      'Where equipment can stand without blocking customers',
+      'Back of house access and who holds the keys',
+      'Any events or bookings to work around'
+    ]
   },
   {
     id: 'industrial-and-manufacturing',
     title: 'Industrial and Manufacturing',
     short: 'Material information reviewed before any pump-out is accepted.',
-    body: 'Approved non-hazardous liquids may collect in tanks, sumps, wash areas, and process locations. TotalVac reviews material information and access requirements before accepting the work.'
+    photo: 'tank-sump-pump-out',
+    body: 'Approved non-hazardous liquids may collect in tanks, sumps, wash areas, and process locations. TotalVac reviews material information and access requirements before accepting the work.',
+    detail: [
+      'Industrial requests get the most scrutiny before they are booked, and that is deliberate. What is in the tank determines whether the job can be accepted at all, how it can be transported, and where it can lawfully go.',
+      'Send whatever material information you hold, including safety data sheets, and TotalVac will tell you plainly whether the request can be accepted. If it cannot, you find out in time to arrange the right service instead of losing a shutdown window.'
+    ],
+    requests: [
+      'Wash bay and process pit pump-outs',
+      'Tank and interceptor content removal, where accepted',
+      'Material review before the work is scheduled',
+      'Coordination with site safety and check-in procedures'
+    ],
+    planning: [
+      'Material information or safety data sheets',
+      'System type, approximate capacity and current level',
+      'Site induction, permits and check-in requirements',
+      'Production windows the work has to fit around'
+    ]
   },
   {
     id: 'construction-and-civil-sites',
     title: 'Construction and Civil Sites',
     short: 'Standing water and pits cleared where access and handling are approved.',
-    body: 'Standing water, pits, and catch basins can interrupt work. TotalVac can assess approved pump-out and dewatering requests where safe access and lawful handling are available.'
+    photo: 'site-dewatering',
+    body: 'Standing water, pits, and catch basins can interrupt work. TotalVac can assess approved pump-out and dewatering requests where safe access and lawful handling are available.',
+    detail: [
+      'On an active site the cost of standing water is measured in trades waiting. An excavation that cannot be inspected, a pour that cannot go ahead, a pit that has to be clear before the next crew arrives.',
+      'TotalVac reviews water quality, sediment, access and the available discharge or disposal route before accepting the work, then coordinates arrival around the trades already on site.'
+    ],
+    requests: [
+      'Standing water removed from excavations and low points',
+      'Catch basin service during and after site work',
+      'Pit and sump clearing where access is safe',
+      'Scheduling around active trades on site'
+    ],
+    planning: [
+      'How the water collected and roughly how much there is',
+      'Any visible sheen, sediment or suspected contamination',
+      'Safe standing position for the equipment',
+      'Site orientation and the supervisor to report to'
+    ]
   },
   {
     id: 'institutional-and-multi-site-operations',
     title: 'Institutional and Multi-Site Operations',
     short: 'Organized scheduling and clear communication across multiple locations.',
-    body: 'Schools, care facilities, commercial portfolios, and multi-location operators benefit from clear communication and organized service scheduling.'
+    photo: 'liquid-waste-removal',
+    body: 'Schools, care facilities, commercial portfolios, and multi-location operators benefit from clear communication and organized service scheduling.',
+    detail: [
+      'Multi-site operators lose more time to coordination than to the work itself. Different contacts, different access rules, different intervals, and no single view of what was serviced where.',
+      'TotalVac can run several locations through one request channel, set an interval per site rather than one blanket schedule, and confirm each visit as it completes so the record stays current.'
+    ],
+    requests: [
+      'A single request channel across several locations',
+      'Recurring intervals set per site',
+      'Kitchen, mechanical and exterior drainage service',
+      'Clear confirmation when each visit is complete'
+    ],
+    planning: [
+      'Site list with a contact for each location',
+      'Access requirements that differ between sites',
+      'Occupied hours, term dates or care schedules',
+      'How you want completion confirmed and recorded'
+    ]
   }
 ];
 

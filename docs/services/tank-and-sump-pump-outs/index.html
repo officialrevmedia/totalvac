@@ -32,6 +32,25 @@
 <link rel="preload" href="/totalvac/assets/fonts/sora-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/totalvac/assets/fonts/inter-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/totalvac/assets/css/site.css">
+<style>
+  /* Inlined so the intro paints on the first frame, before the stylesheet
+     arrives. It removes itself even if JavaScript never runs. */
+  .preloader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;
+    background:#0B1015;animation:preloader-out .5s ease 1.15s forwards}
+  .preloader__inner{display:grid;justify-items:center;gap:22px}
+  .preloader__mark{width:84px;height:84px;opacity:0;animation:preloader-mark .7s cubic-bezier(.22,.61,.36,1) .05s forwards}
+  .preloader__bar{display:block;width:132px;height:2px;background:rgba(174,185,194,.22);overflow:hidden}
+  .preloader__fill{display:block;height:100%;width:100%;background:#2D8CFF;transform:scaleX(0);
+    transform-origin:0 50%;animation:preloader-fill 1.1s cubic-bezier(.4,.1,.2,1) .1s forwards}
+  @keyframes preloader-mark{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+  @keyframes preloader-fill{to{transform:scaleX(1)}}
+  @keyframes preloader-out{to{opacity:0;visibility:hidden}}
+  .preloader.is-done{opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s}
+  @media (prefers-reduced-motion:reduce){
+    .preloader,.preloader__mark,.preloader__fill{animation:none}
+    .preloader{display:none}
+  }
+</style>
 
 <script>document.documentElement.classList.remove('no-js');</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://officialrevmedia.github.io/totalvac/#business","name":"TotalVac Solutions","description":"Vacuum services and non-hazardous liquid waste removal, including grease trap cleaning, catch basin cleaning, tank and sump pump-outs and site dewatering.","url":"https://officialrevmedia.github.io/totalvac/","image":"https://officialrevmedia.github.io/totalvac/assets/brand/og-image.png","logo":"https://officialrevmedia.github.io/totalvac/assets/brand/totalvac-logo-primary.png","areaServed":[{"@type":"Place","name":"Kitchener"},{"@type":"Place","name":"Waterloo"},{"@type":"Place","name":"Greater Toronto Area"}]}</script>
@@ -40,6 +59,12 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Tank and Sump Pump-Outs","description":"When liquid and sediment accumulate in an accessible tank, sump, pit, or interceptor, TotalVac can review the contents, access conditions, and service requirements for a controlled vacuum pump-out.","serviceType":"Tank and Sump Pump-Outs","url":"https://officialrevmedia.github.io/totalvac/services/tank-and-sump-pump-outs/","provider":{"@id":"https://officialrevmedia.github.io/totalvac/#business"}}</script>
 </head>
 <body>
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <img class="preloader__mark" src="/totalvac/assets/brand/totalvac-mark-white.png" alt="" width="256" height="256">
+    <span class="preloader__bar"><span class="preloader__fill"></span></span>
+  </div>
+</div>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <div class="utility-bar">

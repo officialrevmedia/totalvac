@@ -84,7 +84,8 @@ Items marked OPEN are currently blocking a truthful launch. The build prints the
 
 ## 10. Social proof
 
-- [ ] Add testimonials only with written permission from the customer, and only real wording
+- [ ] Collect three real testimonials with written permission, add them to `src/content/testimonials.mjs`, and set `approved` to true. The section is built and styled, and the commitments block steps aside automatically
+- [ ] Do not publish invented customer quotes. Fabricated endorsements are a false or misleading representation under the Competition Act, and the risk lands on TotalVac rather than on the website
 - [ ] Add client logos only with written permission from the client
 - [ ] Do not add review ratings, counters, years in business, job counts or fleet numbers unless each figure is verifiable
 - [ ] If a Google Business Profile is created, keep name, phone and service area identical to this site

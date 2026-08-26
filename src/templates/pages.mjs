@@ -15,10 +15,12 @@ import {
   PageHero,
   SectionHeading,
   ServiceCard,
+  IndustryCard,
   CheckList,
   Notice,
   FAQAccordion,
   ProcessSteps,
+  PhotoPanel,
   FinalCTA
 } from '../components/blocks.mjs';
 import { QuoteForm } from '../components/form.mjs';
@@ -32,7 +34,7 @@ export const industriesPage = () => ({
   output: 'industries/index.html',
   title: 'Industries We Serve | TotalVac Solutions',
   description:
-    'Vacuum services for restaurants, property management, retail, industrial facilities, construction sites and multi-site operations. Request service from TotalVac Solutions.',
+    'Vacuum services for restaurants, property management, retail, industrial facilities, construction sites and multi-site operations across Kitchener, Waterloo and the GTA.',
   breadcrumbs: [
     { label: 'Home', href: '/' },
     { label: 'Industries', href: '/industries/' }
@@ -41,32 +43,84 @@ export const industriesPage = () => ({
 ${PageHero({
   eyebrow: 'INDUSTRIES',
   title: 'Commercial vacuum support across the places that keep communities moving.',
-  lede: 'The equipment is the same. The planning is not. Each type of site brings its own access, timing and material considerations, and the service is coordinated around them.'
+  lede: 'The equipment is the same. The planning is not. A restaurant, a condominium and an active construction site each bring their own access, timing and material considerations, and the service is coordinated around them.'
 })}
+
+<section class="section--tight surface-white">
+  <div class="shell">
+    <div class="grid grid--3" data-reveal>
+      ${industries.map((industry) => IndustryCard(industry)).join('\n      ')}
+    </div>
+  </div>
+</section>
 
 ${industries
   .map(
     (industry, i) => `
 <section class="section${i % 2 === 1 ? ' surface-white' : ''}" id="${industry.id}">
   <div class="shell">
-    <div class="split" style="align-items:start">
+    <div class="split${i % 2 === 1 ? ' split--media-first' : ''}" style="align-items:start">
       <div data-reveal>
         <p class="eyebrow">0${i + 1}</p>
         <h2>${industry.title}</h2>
         <p class="lede">${industry.body}</p>
-      </div>
-      <div class="spec-panel" data-reveal>
-        <h3>Typical requests</h3>
-        ${CheckList(industryRequests[industry.id])}
-        <p style="margin-top:1.5rem;margin-bottom:0">
+        ${industry.detail.map((para) => `<p>${para}</p>`).join('\n        ')}
+
+        <h3 style="margin-top:2rem">Typical requests</h3>
+        ${CheckList(industry.requests)}
+
+        <p style="margin-top:2rem">
           <a class="link-arrow" href="/contact/">Request service for this site type ${iconArrow(14)}</a>
         </p>
+      </div>
+      <div data-reveal="media">
+        ${Photo(
+          {
+            id: industry.photo,
+            shot: industry.title,
+            alt: industry.title,
+            ratio: '4 / 3'
+          },
+          { className: 'media--framed', sizes: '(min-width: 900px) 45vw, 100vw' }
+        )}
+        <div class="spec-panel" style="margin-top:1.5rem">
+          <h3>What we confirm first</h3>
+          ${CheckList(industry.planning)}
+        </div>
       </div>
     </div>
   </div>
 </section>`
   )
   .join('\n')}
+
+<section class="section surface-ink">
+  <div class="shell">
+    ${SectionHeading({
+      eyebrow: 'ACROSS EVERY SECTOR',
+      title: 'The part that does not change.',
+      lede: 'Whatever the site, the same four things decide whether a job can be booked and how smoothly it runs.'
+    })}
+    ${ProcessSteps([
+      {
+        title: 'What the material is',
+        body: 'Acceptance is judged on the contents, not on the type of building. That review happens before a window is offered.'
+      },
+      {
+        title: 'How the point is reached',
+        body: 'Vehicle position, hose distance, lids, gates and traffic all get confirmed in advance rather than discovered on site.'
+      },
+      {
+        title: 'When the work can happen',
+        body: 'Trading hours, production windows, quiet hours and active trades set the window as much as the calendar does.'
+      },
+      {
+        title: 'Where it goes afterward',
+        body: 'The available disposal or discharge route is part of the scope, not an afterthought once the tank is full.'
+      }
+    ])}
+  </div>
+</section>
 
 <section class="section--tight surface-white">
   <div class="shell shell--narrow">
@@ -78,44 +132,6 @@ ${FinalCTA()}
 `
 });
 
-const industryRequests = {
-  'restaurants-and-food-service': [
-    'Grease trap pump-outs on a set interval',
-    'One-time service before an inspection or a busy period',
-    'Coordination around delivery windows and service hours',
-    'Multi-location scheduling under one point of contact'
-  ],
-  'property-management-and-condominiums': [
-    'Catch basin cleaning across a property',
-    'Sump and pit pump-outs in mechanical areas',
-    'Recurring service for known problem points',
-    'Documentation of what was serviced and when'
-  ],
-  'retail-and-hospitality': [
-    'Drainage service planned outside customer hours',
-    'Loading area and back of house pump-outs',
-    'Coordination with building and property management',
-    'Work windows that protect guest access'
-  ],
-  'industrial-and-manufacturing': [
-    'Wash bay and process pit pump-outs',
-    'Tank and interceptor content removal, where accepted',
-    'Material review before the work is scheduled',
-    'Coordination with site safety and check-in procedures'
-  ],
-  'construction-and-civil-sites': [
-    'Standing water removed from excavations and low points',
-    'Catch basin service during and after site work',
-    'Pit and sump clearing where access is safe',
-    'Scheduling around active trades on site'
-  ],
-  'institutional-and-multi-site-operations': [
-    'A single request channel across several locations',
-    'Recurring intervals set per site',
-    'Kitchen, mechanical and exterior drainage service',
-    'Clear confirmation when each visit is complete'
-  ]
-};
 
 /* -------------------------------------------------------------------- about */
 
@@ -124,7 +140,7 @@ export const aboutPage = () => ({
   output: 'about/index.html',
   title: 'About TotalVac Solutions | Vacuum and Liquid Waste Services',
   description:
-    'TotalVac Solutions provides vacuum services and liquid waste removal built on preparation, professionalism and clear communication. Learn how the service works.',
+    'How TotalVac Solutions works: how a job is scoped, what the equipment suits, how sites are protected, and what is confirmed before a crew arrives.',
   breadcrumbs: [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about/' }
@@ -141,14 +157,15 @@ ${PageHero({
     <div class="split" style="align-items:start">
       <div data-reveal>
         <p>We support businesses, properties, and worksites with practical liquid waste removal and recurring maintenance built around the needs of the site. Whether the request involves a grease trap, catch basin, sump, holding tank, or another accepted non-hazardous liquid, the goal remains the same: arrive prepared, work carefully, leave the area orderly, and keep the customer informed.</p>
-        <p>${siteConfig.brandPromise}</p>
+        <p>Most of what goes wrong in this trade goes wrong before anyone opens a lid. The material turns out to be something else. The hose will not reach. The gate code nobody mentioned is the reason the crew is standing in a parking lot at seven in the morning. So the work starts with questions rather than with a truck.</p>
+        <p class="lede" style="margin-top:2rem">${siteConfig.brandPromise}</p>
       </div>
       <div data-reveal="media">
         ${Photo(
           {
             id: 'crew-and-equipment',
-            shot: 'Service technician in reflective PPE working with clean, organised vacuum equipment at a commercial property',
-            alt: 'Service technician in reflective protective clothing handling vacuum equipment at a commercial property',
+            shot: 'Vacuum equipment',
+            alt: 'TotalVac vacuum equipment',
             ratio: '4 / 3'
           },
           { className: 'media--framed', sizes: '(min-width: 900px) 45vw, 100vw' }
@@ -176,13 +193,78 @@ ${PageHero({
 
 <section class="section surface-white">
   <div class="shell">
+    ${PhotoPanel({
+      eyebrow: 'THE EQUIPMENT',
+      title: 'A vacuum trailer setup, matched to the job.',
+      body: [
+        'TotalVac runs a vacuum trailer setup rather than a full size tanker fleet, and that shapes the work it suits. A trailer reaches places a large truck cannot: tight loading areas, low clearance parking structures, condominium service yards, and sites where a tanker would block the only lane in.',
+        'It also sets honest limits. Volume, hose reach and access are checked against the request before anything is booked, so a job that genuinely needs larger equipment gets identified early rather than halfway through.',
+        'Every request comes down to four practical questions: what the liquid is, how much of it there is, how the point is reached, and where the material can lawfully go.'
+      ],
+      photo: {
+        id: 'equipment-detail',
+        shot: 'Vacuum trailer',
+        alt: 'TotalVac vacuum trailer',
+        ratio: '16 / 11'
+      },
+      mediaFirst: true
+    })}
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    ${SectionHeading({
+      eyebrow: 'ON SITE',
+      title: 'How the work is kept clean and safe.',
+      lede: 'Vacuum work happens on properties that stay open while it is going on. The approach reflects that.'
+    })}
+    <div class="grid grid--3">
+      <div class="card" data-reveal>
+        <span class="card__index">01</span>
+        <h3>The work zone is defined</h3>
+        <p>Cones and equipment placement mark the area so staff, residents and customers can see where the work is and route around it.</p>
+      </div>
+      <div class="card" data-reveal>
+        <span class="card__index">02</span>
+        <h3>Service happens from outside</h3>
+        <p>Tanks, sumps and pits are serviced from above using vacuum equipment. TotalVac does not perform confined-space entry.</p>
+      </div>
+      <div class="card" data-reveal>
+        <span class="card__index">03</span>
+        <h3>Material is reviewed first</h3>
+        <p>If the contents are uncertain, the request is reviewed before a window is booked rather than assessed at the lid.</p>
+      </div>
+      <div class="card" data-reveal>
+        <span class="card__index">04</span>
+        <h3>Access is protected</h3>
+        <p>Hose routing is planned to keep entrances, fire routes and traffic lanes usable for as much of the visit as possible.</p>
+      </div>
+      <div class="card" data-reveal>
+        <span class="card__index">05</span>
+        <h3>Lids go back properly</h3>
+        <p>Grates, hatches and covers are reseated and checked before the crew leaves the area.</p>
+      </div>
+      <div class="card" data-reveal>
+        <span class="card__index">06</span>
+        <h3>Completion is confirmed</h3>
+        <p>You are told the work is done and what was observed, rather than finding out at the next invoice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section surface-graphite">
+  <div class="shell">
     <div class="split" style="align-items:start">
       <div data-reveal>
         <p class="eyebrow">BEFORE ARRIVAL</p>
         <h2>What we can confirm before arrival</h2>
-        <p class="lede">Most service problems come from surprises on site. These are the details we work through with you first.</p>
+        <p class="lede">Most service problems come from surprises on site. These are the details we work through with you first, and they are the reason a visit usually takes one trip rather than two.</p>
+        <p style="margin-top:1.5rem"><a class="btn" href="/contact/">Start a request ${iconArrow()}</a></p>
       </div>
-      <div class="spec-panel" data-reveal>
+      <div class="spec-panel" data-reveal style="background:var(--ink);border-color:var(--line-dark);color:var(--warm)">
+        <h3 style="color:var(--warm)">Confirmed in advance</h3>
         ${CheckList(aboutConfirmList)}
       </div>
     </div>
@@ -204,6 +286,26 @@ ${
   <div class="shell">
     ${SectionHeading({ eyebrow: 'HOW IT WORKS', title: 'Simple from request to removal.' })}
     ${ProcessSteps(processSteps)}
+  </div>
+</section>
+
+<section class="section surface-white">
+  <div class="shell">
+    ${PhotoPanel({
+      eyebrow: 'COVERAGE',
+      title: `Serving ${serviceAreaLabel()}.`,
+      body: [
+        'TotalVac works with commercial, industrial, food-service, property and worksite locations across the region. Coverage for any given address depends on more than distance: access, material, volume and the available disposal route all factor in.',
+        'Send the site address with a request and you will get a straight answer on whether it can be serviced and when.'
+      ],
+      photo: {
+        id: 'property-context',
+        shot: 'Commercial property service',
+        alt: 'TotalVac vacuum trailer at a commercial property',
+        ratio: '16 / 11'
+      },
+      cta: { href: '/service-area/', label: 'View service area' }
+    })}
   </div>
 </section>
 
