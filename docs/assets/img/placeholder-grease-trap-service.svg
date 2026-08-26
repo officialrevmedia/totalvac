@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Photo placeholder">
+  <rect width="1200" height="900" fill="#11171C"/>
+  <g stroke="#73818C" stroke-opacity="0.16">
+    <path d="M0 225H1200M0 450H1200M0 675H1200"/>
+    <path d="M300 0V900M600 0V900M900 0V900"/>
+  </g>
+  <g transform="translate(1010 710)" stroke="#2D8CFF" fill="none" stroke-opacity="0.5">
+    <circle cx="120" cy="120" r="118" stroke-width="1"/>
+    <circle cx="120" cy="120" r="86" stroke-width="1.5" stroke-dasharray="10 16"/>
+    <circle cx="120" cy="120" r="44" stroke-width="1"/>
+  </g>
+  <rect x="56" y="52" width="46" height="3" fill="#2D8CFF"/>
+  <text x="56" y="94" fill="#F5F4EF" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" letter-spacing="4">PHOTO PLACEHOLDER</text>
+  <text x="56" y="158" fill="#73818C" font-family="Inter, system-ui, sans-serif" font-size="15" letter-spacing="3">REQUIRED SHOT</text>
+  <text x="56" y="196" fill="#AEB9C2" font-family="Inter, system-ui, sans-serif" font-size="22">Commercial grease interceptor</text>
+    <text x="56" y="228" fill="#AEB9C2" font-family="Inter, system-ui, sans-serif" font-size="22">being serviced by a technician in</text>
+    <text x="56" y="260" fill="#AEB9C2" font-family="Inter, system-ui, sans-serif" font-size="22">PPE</text>
+</svg>
