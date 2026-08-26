@@ -36,7 +36,7 @@
 :root {
   /* Brand palette */
   --ink: #0b1015;
-  --graphite: #11171c;
+  --graphite: #161e25;
   --steel: #73818c;
   --titanium: #aeb9c2;
   --warm: #f5f4ef;
@@ -58,9 +58,9 @@
 
   /* Text */
   --text: #0b1015;
-  --text-muted: #4d5a64;
+  --text-muted: #4a5661;
   --text-on-dark: var(--warm);
-  --text-on-dark-muted: #9aa7b1;
+  --text-on-dark-muted: #aab6c0;
 
   /* Type */
   --font-display: 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -441,6 +441,7 @@ hr {
   font-weight: 600;
   letter-spacing: 0.01em;
   text-decoration: none;
+  text-wrap: balance;
   cursor: pointer;
   transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease),
     color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
@@ -520,67 +521,6 @@ hr {
 /* 7. Header, utility bar, navigation
    ========================================================================== */
 
-.utility-bar {
-  background: var(--ink);
-  color: var(--titanium);
-  border-bottom: 1px solid var(--line-dark);
-  font-size: var(--step--1);
-}
-
-.utility-bar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-4);
-  min-height: 40px;
-  padding-block: 0.35rem;
-}
-
-.utility-bar__left {
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-size: var(--step--2);
-  font-weight: 500;
-  color: var(--steel);
-}
-
-.utility-bar__right {
-  display: flex;
-  align-items: center;
-  gap: var(--s-4);
-  margin-left: auto;
-}
-
-.utility-bar__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--warm);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.utility-bar__link:hover {
-  color: var(--blue);
-}
-
-.utility-bar__note {
-  color: var(--steel);
-}
-
-@media (max-width: 860px) {
-  .utility-bar__left,
-  .utility-bar__note {
-    display: none;
-  }
-  .utility-bar__inner {
-    justify-content: center;
-  }
-  .utility-bar__right {
-    margin-left: 0;
-  }
-}
-
 .site-header {
   position: sticky;
   top: 0;
@@ -600,8 +540,8 @@ hr {
   display: flex;
   align-items: center;
   gap: var(--s-4);
-  min-height: 78px;
-  padding-block: 0.75rem;
+  min-height: 84px;
+  padding-block: 0.85rem;
 }
 
 .brand {
@@ -625,8 +565,8 @@ hr {
 .nav {
   display: flex;
   align-items: center;
-  gap: clamp(0.75rem, 1.6vw, 1.75rem);
-  margin-left: auto;
+  gap: clamp(1rem, 2vw, 2.1rem);
+  margin-inline: auto;
 }
 
 .nav__link {
@@ -665,13 +605,34 @@ hr {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: var(--s-2);
-  margin-left: var(--s-3);
+  gap: clamp(1rem, 1.8vw, 1.75rem);
+  margin-left: clamp(1rem, 2.4vw, 2.25rem);
+  padding-left: clamp(1rem, 2.4vw, 2.25rem);
+  border-left: 1px solid var(--line-dark);
 }
 
 .header-actions .btn {
-  min-height: 46px;
-  padding-inline: 1.15rem;
+  min-height: 48px;
+  padding-inline: 1.35rem;
+  white-space: nowrap;
+}
+
+.header-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 48px;
+  color: var(--warm);
+  font-size: var(--step-0);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--t-fast) var(--ease);
+}
+
+.header-phone:hover {
+  color: var(--blue);
 }
 
 .nav-toggle {
@@ -717,6 +678,13 @@ hr {
 
 .nav-toggle[aria-expanded='true'] .nav-toggle__bars span:nth-child(3) {
   transform: translateY(-6px) rotate(-45deg);
+}
+
+/* The phone link folds away before the nav does, since the sticky bar carries it */
+@media (max-width: 1180px) {
+  .header-phone {
+    display: none;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -912,17 +880,11 @@ hr {
     width: calc(100% + max(var(--gutter), (100vw - var(--shell)) / 2 + var(--gutter)));
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    height: 100%;
-    min-height: 460px;
   }
-  .hero__media .media,
-  .hero__media .media img,
-  .hero__media .media svg {
-    height: 100%;
-  }
-  /* Favour the right of the frame so the trailer and branding stay in shot */
-  .hero__media .media img {
-    object-position: 62% 50%;
+  /* The frame keeps the photograph's own proportions rather than stretching to
+     the height of the copy column, so nothing is cropped out of the shot. */
+  .hero__media .media {
+    height: auto;
   }
 }
 
@@ -957,9 +919,16 @@ hr {
 
 .media {
   position: relative;
+  margin: 0;
   overflow: hidden;
   border-radius: var(--r);
   background: var(--graphite);
+}
+
+.media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .media img,
@@ -967,6 +936,7 @@ hr {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
   transition: transform 700ms var(--ease), filter 700ms var(--ease);
 }
@@ -978,8 +948,8 @@ hr {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(11, 16, 21, 0) 55%, rgba(11, 16, 21, 0.28) 100%);
-  opacity: 0.9;
+  background: linear-gradient(180deg, rgba(11, 16, 21, 0) 62%, rgba(11, 16, 21, 0.18) 100%);
+  opacity: 0.85;
 }
 
 .media--plain::after {
@@ -1068,8 +1038,8 @@ a.card:hover .media img,
 .marquee {
   position: relative;
   overflow: hidden;
-  background: var(--graphite);
-  border-block: 1px solid var(--line-dark);
+  background: var(--white);
+  border-block: 1px solid var(--line-light);
   padding-block: 0.95rem;
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
@@ -1102,7 +1072,7 @@ a.card:hover .media img,
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--titanium);
+  color: var(--text-muted);
   white-space: nowrap;
 }
 
@@ -1224,26 +1194,154 @@ a.card:hover .card__cta svg {
   transition: transform var(--t) var(--ease);
 }
 
-.card--dark {
+.card--dark,
+.surface-ink .card,
+.surface-graphite .card {
   background: var(--graphite);
   border-color: var(--line-dark);
   color: var(--text-on-dark);
 }
 
-.card--dark h3 {
+.surface-ink .card {
+  background: #131a21;
+}
+
+.card--dark h3,
+.surface-ink .card h3,
+.surface-graphite .card h3 {
   color: var(--text-on-dark);
 }
 
-.card--dark p {
+.card--dark p,
+.surface-ink .card p,
+.surface-graphite .card p {
   color: var(--text-on-dark-muted);
 }
 
-a.card--dark:hover {
+a.card--dark:hover,
+.surface-ink a.card:hover,
+.surface-graphite a.card:hover {
   border-color: rgba(45, 140, 255, 0.6);
 }
 
-.card--dark .card__cta {
+.card--dark .card__cta,
+.surface-ink .card .card__cta,
+.surface-graphite .card .card__cta {
   color: var(--blue);
+}
+
+/* Photo cards */
+.card--photo {
+  padding: 0;
+  overflow: hidden;
+}
+
+.card--photo .card__media {
+  margin: 0;
+  overflow: hidden;
+}
+
+.card--photo .card__media .media {
+  border-radius: 0;
+}
+
+.card--photo .card__index,
+.card--photo h3,
+.card--photo p {
+  padding-inline: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+.card--photo .card__index {
+  padding-top: clamp(1.25rem, 2vw, 1.6rem);
+}
+
+.card--photo .card__cta {
+  padding: var(--s-3) clamp(1.25rem, 2vw, 1.75rem) clamp(1.25rem, 2vw, 1.6rem);
+}
+
+.card--photo .card__media .media::after {
+  background: linear-gradient(180deg, rgba(11, 16, 21, 0) 55%, rgba(11, 16, 21, 0.35) 100%);
+}
+
+/* Statement band */
+.statement {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(360px, 46vw, 560px);
+  display: grid;
+  align-items: center;
+  background: var(--ink);
+}
+
+.statement__media {
+  position: absolute;
+  inset: -8% 0;
+  z-index: -2;
+}
+
+.statement__media .media {
+  /* The inline aspect ratio is right for a framed photo but wrong for a band
+     that has to fill the viewport width, so it is overridden here only. */
+  aspect-ratio: auto !important;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+.statement__media .media::after {
+  display: none;
+}
+
+.statement__media img {
+  height: 100%;
+  object-position: center 58%;
+}
+
+.statement::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(11, 16, 21, 0.92) 0%, rgba(11, 16, 21, 0.72) 45%, rgba(11, 16, 21, 0.35) 100%);
+}
+
+.statement__inner {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  max-width: 60rem;
+}
+
+.statement__text {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.6vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--warm);
+  margin: 0 0 var(--s-3);
+  max-width: 18ch;
+}
+
+.statement__attribution {
+  margin: 0;
+  color: var(--titanium);
+  font-size: var(--step-0);
+}
+
+@supports (animation-timeline: view()) {
+  .statement__media img {
+    animation: statement-drift linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% exit 100%;
+  }
+}
+
+@keyframes statement-drift {
+  from {
+    transform: translateY(-3%) scale(1.04);
+  }
+  to {
+    transform: translateY(3%) scale(1.04);
+  }
 }
 
 /* Value points and numbered process */
@@ -1253,7 +1351,12 @@ a.card--dark:hover {
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--line-dark);
+  border-top: 1px solid var(--line-light);
+}
+
+.surface-ink .value-list,
+.surface-graphite .value-list {
+  border-top-color: var(--line-dark);
 }
 
 @media (min-width: 800px) {
@@ -1266,7 +1369,12 @@ a.card--dark:hover {
 .value-list li {
   margin: 0;
   padding: var(--s-5) 0;
-  border-bottom: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-light);
+}
+
+.surface-ink .value-list li,
+.surface-graphite .value-list li {
+  border-bottom-color: var(--line-dark);
 }
 
 .value-list h3 {
@@ -1276,8 +1384,13 @@ a.card--dark:hover {
 
 .value-list p {
   margin: 0;
-  color: var(--text-on-dark-muted);
+  color: var(--text-muted);
   font-size: var(--step-0);
+}
+
+.surface-ink .value-list p,
+.surface-graphite .value-list p {
+  color: var(--text-on-dark-muted);
 }
 
 .process {
@@ -1515,6 +1628,125 @@ a.card--dark:hover {
   width: 100%;
   height: auto;
   margin-top: var(--s-4);
+}
+
+/* 13b. Coverage map
+   ========================================================================== */
+
+.coverage__figure {
+  position: relative;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--r);
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.coverage__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.coverage__route {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: coverage-draw 2.4s var(--ease) forwards;
+}
+
+.coverage__point {
+  opacity: 0;
+  animation: coverage-pin 0.5s var(--ease) forwards;
+  animation-delay: calc(0.6s + var(--i) * 0.16s);
+}
+
+@keyframes coverage-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes coverage-pin {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.coverage__load {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: 1.15rem clamp(1rem, 2vw, 1.5rem);
+  border-top: 1px solid var(--line-dark);
+  background: var(--graphite);
+}
+
+.coverage__load p {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--titanium);
+  max-width: 46ch;
+}
+
+.coverage__frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .coverage__load {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .coverage__load .btn {
+    width: 100%;
+  }
+}
+
+.area-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: var(--line-light);
+  border: 1px solid var(--line-light);
+  border-radius: var(--r);
+  overflow: hidden;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+
+.area-grid li {
+  margin: 0;
+  background: var(--white);
+  padding: 1.25rem 1.35rem;
+  display: grid;
+  gap: 0.3rem;
+  transition: background var(--t) var(--ease);
+}
+
+.area-grid li:hover {
+  background: rgba(45, 140, 255, 0.05);
+}
+
+.area-grid__name {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.area-grid__meta {
+  font-size: var(--step--1);
+  color: var(--steel);
 }
 
 /* 14. Accordion
@@ -2107,6 +2339,26 @@ a.card--dark:hover {
   color: var(--steel);
 }
 
+.site-footer__credit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.site-footer__credit a {
+  text-decoration: none;
+}
+
+.site-footer__credit a[rel] {
+  color: var(--titanium);
+}
+
+.site-footer__credit a[rel]:hover {
+  color: var(--blue);
+}
+
 /* 21. Sticky mobile actions
    ========================================================================== */
 
@@ -2272,8 +2524,20 @@ a.card--dark:hover {
   .flow-ring__spin,
   .hero__media .media img,
   .scroll-progress,
-  .marquee__track {
+  .marquee__track,
+  .coverage__route,
+  .coverage__point,
+  .statement__media img {
     animation: none;
+  }
+  .statement__media img {
+    transform: none;
+  }
+  .coverage__route {
+    stroke-dashoffset: 0;
+  }
+  .coverage__point {
+    opacity: 1;
   }
   .marquee {
     mask-image: none;

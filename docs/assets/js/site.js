@@ -214,6 +214,23 @@
     });
   }
 
+  /* --------------------------------------------------------------- map load */
+  /* The interactive map is only requested when the visitor asks for it. */
+  var mapButton = document.querySelector('[data-map-load]');
+  if (mapButton) {
+    mapButton.addEventListener('click', function () {
+      var facade = mapButton.closest('[data-map-facade]');
+      var frame = document.createElement('iframe');
+      frame.className = 'coverage__frame';
+      frame.setAttribute('title', 'Map of the TotalVac Solutions service corridor');
+      frame.setAttribute('loading', 'lazy');
+      frame.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      frame.src = mapButton.getAttribute('data-map-src');
+      facade.innerHTML = '';
+      facade.appendChild(frame);
+    });
+  }
+
   /* ------------------------------------------------------------------ forms */
   var form = document.querySelector('[data-service-form]');
   if (!form) return;
