@@ -34,7 +34,20 @@ export const siteConfig = {
   baseCity: null, // TO CONFIRM: where the trailer is based
   serviceArea: 'Kitchener, Waterloo and the Greater Toronto Area',
   // Confirmed coverage. Add a city only when TotalVac genuinely services it.
-  serviceAreaList: ['Kitchener', 'Waterloo', 'Greater Toronto Area'],
+  serviceAreaList: [
+    'Kitchener',
+    'Waterloo',
+    'Cambridge',
+    'Guelph',
+    'Stratford',
+    'Brantford',
+    'Caledonia',
+    'Hamilton',
+    'Burlington',
+    'Oakville',
+    'Mississauga',
+    'Toronto'
+  ],
   // Compact form used inside page titles, where character count matters.
   serviceAreaShort: 'Kitchener Waterloo and the GTA',
   address: null, // TO CONFIRM: street address, or leave null for a service area business

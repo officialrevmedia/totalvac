@@ -21,6 +21,7 @@ import {
   FAQAccordion,
   ProcessSteps,
   PhotoPanel,
+  CoverageMap,
   FinalCTA
 } from '../components/blocks.mjs';
 import { QuoteForm } from '../components/form.mjs';
@@ -41,6 +42,7 @@ export const industriesPage = () => ({
   ],
   body: `
 ${PageHero({
+  trail: [{ label: 'Home', href: '/' }, { label: 'Industries', href: '/industries/' }],
   eyebrow: 'INDUSTRIES',
   title: 'Commercial vacuum support across the places that keep communities moving.',
   lede: 'The equipment is the same. The planning is not. A restaurant, a condominium and an active construction site each bring their own access, timing and material considerations, and the service is coordinated around them.'
@@ -94,7 +96,7 @@ ${industries
   )
   .join('\n')}
 
-<section class="section surface-ink">
+<section class="section surface-white">
   <div class="shell">
     ${SectionHeading({
       eyebrow: 'ACROSS EVERY SECTOR',
@@ -147,6 +149,7 @@ export const aboutPage = () => ({
   ],
   body: `
 ${PageHero({
+  trail: [{ label: 'Home', href: '/' }, { label: 'About', href: '/about/' }],
   eyebrow: 'ABOUT',
   title: 'A better standard for vacuum service.',
   lede: 'TotalVac Solutions was built around a simple idea: vacuum service should be easy to book, professionally executed, and clearly communicated from the first call to the final check.'
@@ -175,7 +178,7 @@ ${PageHero({
   </div>
 </section>
 
-<section class="section surface-ink">
+<section class="section surface-white">
   <div class="shell">
     ${SectionHeading({ eyebrow: 'VALUES', title: 'Five things that shape every visit.' })}
     <ul class="value-list">
@@ -333,6 +336,7 @@ export const serviceAreaPage = () => {
     ],
     body: `
 ${PageHero({
+  trail: [{ label: 'Home', href: '/' }, { label: 'Service Area', href: '/service-area/' }],
   eyebrow: 'SERVICE AREA',
   title: hasServiceArea() ? `Vacuum services across ${area}.` : 'Where TotalVac provides service.',
   lede: `TotalVac serves approved commercial, industrial, food-service, property, and worksite locations across ${area}. Service availability depends on location, material type, access, volume, scheduling, and disposal requirements.`
@@ -369,9 +373,41 @@ ${PageHero({
 
 <section class="section surface-white">
   <div class="shell">
+    ${SectionHeading({
+      eyebrow: 'COVERAGE MAP',
+      title: 'The corridor TotalVac works.',
+      lede: 'From Stratford in the west, through Kitchener, Waterloo, Cambridge and Guelph, south to Brantford, Caledonia and Hamilton, and east along the lake through Burlington, Oakville, Mississauga and Toronto.'
+    })}
+    ${CoverageMap({ query: 'Kitchener Waterloo Hamilton Toronto Ontario' })}
+    <p class="field__hint" style="margin-top:1.25rem;max-width:60ch">Place names on this diagram show the corridor served. They are not a claim of completed work in each municipality, and service for any address depends on access, material, volume and disposal requirements.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    ${SectionHeading({
+      eyebrow: 'MUNICIPALITIES',
+      title: 'Where requests are accepted.',
+      lede: 'Every location below sits inside the working corridor. Acceptance for a specific address still depends on the material, the access and the disposal route.'
+    })}
+    <ul class="area-grid" data-reveal>
+      ${cities
+        .map(
+          (city) => `<li>
+        <span class="area-grid__name">${city}</span>
+        <span class="area-grid__meta">Grease trap, catch basin, tank and sump service</span>
+      </li>`
+        )
+        .join('\n      ')}
+    </ul>
+  </div>
+</section>
+
+<section class="section surface-white">
+  <div class="shell">
     ${SectionHeading({ eyebrow: 'SERVICES AVAILABLE', title: 'What can be requested in the coverage area.' })}
     <div class="grid grid--3" data-reveal>
-      ${services.map((s, i) => ServiceCard(s, i)).join('\n      ')}
+      ${services.map((s, i) => ServiceCard(s, i, { withPhoto: true })).join('\n      ')}
     </div>
   </div>
 </section>
@@ -396,6 +432,7 @@ export const faqPage = (resolvedFaqs) => ({
   ],
   body: `
 ${PageHero({
+  trail: [{ label: 'Home', href: '/' }, { label: 'FAQ', href: '/faq/' }],
   eyebrow: 'FAQ',
   title: 'Questions people ask before booking.',
   lede: 'Short, accurate answers about services, materials, scheduling and site preparation. If your question is not here, send it with your service request.'
@@ -431,6 +468,7 @@ export const contactPage = () => ({
   ],
   body: `
 ${PageHero({
+  trail: [{ label: 'Home', href: '/' }, { label: 'Contact', href: '/contact/' }],
   eyebrow: 'REQUEST SERVICE',
   title: 'Tell us what needs to be removed.',
   lede: 'Share the service type, location, access details, approximate volume, and urgency. Photos are helpful when available.',
@@ -513,6 +551,7 @@ export const privacyPage = () => ({
   ],
   body: `
 ${PageHero({
+  trail: [{ label: 'Home', href: '/' }, { label: 'Privacy', href: '/privacy/' }],
   eyebrow: 'PRIVACY',
   title: 'Privacy',
   lede: 'Plain language about what this website collects and how service request details are used.',

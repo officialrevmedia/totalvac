@@ -6,6 +6,7 @@ import {
   Hero,
   Marquee,
   Testimonials,
+  StatementBand,
   SectionHeading,
   TrustStrip,
   ServiceCard,
@@ -79,6 +80,7 @@ ${Hero({
 
 ${Marquee({
   items: [
+    `Serving ${siteConfig.serviceAreaShort || siteConfig.serviceArea}`,
     'Grease Trap',
     'Catch Basin',
     'Liquid Waste Services',
@@ -101,12 +103,12 @@ ${TrustStrip({
       lede: 'From recurring grease trap service to standing water and catch basin clean-outs, TotalVac provides practical vacuum solutions designed to minimize disruption and keep sites functioning.'
     })}
     <div class="grid grid--3" data-reveal>
-      ${cards.map((service, i) => ServiceCard(service, i)).join('\n      ')}
+      ${cards.map((service, i) => ServiceCard(service, i, { withPhoto: true })).join('\n      ')}
     </div>
   </div>
 </section>
 
-<section class="section surface-ink">
+<section class="section surface-white">
   <div class="shell">
     <div class="split split--wide-copy" style="align-items:start">
       <div data-reveal>
@@ -140,7 +142,14 @@ ${TrustStrip({
   </div>
 </section>
 
-<section class="section surface-graphite">
+${StatementBand({
+  eyebrow: 'THE STANDARD',
+  statement: 'Clean execution. Clear communication. Total response.',
+  attribution: 'The promise every TotalVac visit is measured against.',
+  photoId: 'property-context'
+})}
+
+<section class="section">
   <div class="shell">
     ${SectionHeading({
       eyebrow: 'INDUSTRIES',

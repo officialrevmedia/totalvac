@@ -1,4 +1,14 @@
 import { phoneLabel, phoneHref } from '../config/siteConfig.mjs';
+import { Breadcrumbs } from './layout.mjs';
+import {
+  MAP_SIZE,
+  LAKE_ONTARIO,
+  LAKE_ERIE,
+  GRAND_RIVER,
+  HIGHWAYS,
+  CITIES,
+  CITY_LABELS
+} from '../content/coverage-map.mjs';
 import { iconArrow, iconPhone, flowRing } from './icons.mjs';
 import { Photo } from './media.mjs';
 
@@ -35,8 +45,9 @@ export const Hero = ({ eyebrow, title, support, photo, reassurance = [] }) => `
   </div>
 </section>`;
 
-export const PageHero = ({ eyebrow, title, lede, actions = true }) => `
+export const PageHero = ({ eyebrow, title, lede, actions = true, trail = null }) => `
 <section class="page-hero">
+  ${trail ? Breadcrumbs(trail) : ''}
   <div class="shell page-hero__inner" data-reveal>
     ${eyebrow ? `<p class="eyebrow">${eyebrow}</p>` : ''}
     <h1>${title}</h1>
@@ -63,16 +74,44 @@ export const TrustStrip = ({ categories, note }) => `
   </div>
 </section>`;
 
-export const ServiceCard = (service, index) => `
-<a class="card" href="${service.href || `/services/${service.slug}/`}">
+export const ServiceCard = (service, index, options = {}) => {
+  const { withPhoto = false } = options;
+  const photoId = service.photo ? service.photo.id : service.photoId;
+  return `
+<a class="card${withPhoto && photoId ? ' card--photo' : ''}" href="${service.href || `/services/${service.slug}/`}">
+  ${
+    withPhoto && photoId
+      ? `<div class="card__media">${Photo(
+          { id: photoId, shot: service.title, alt: service.title, ratio: '3 / 2' },
+          { sizes: '(min-width: 1100px) 30vw, (min-width: 640px) 45vw, 92vw' }
+        )}</div>`
+      : ''
+  }
   <span class="card__index">0${index + 1}</span>
   <h3>${service.title}</h3>
   <p>${service.cardSummary}</p>
   <span class="card__cta">${service.cta || 'Explore service'} ${iconArrow(14)}</span>
 </a>`;
+};
+
+/** Full width statement band with a slow parallax on the photograph. */
+export const StatementBand = ({ eyebrow, statement, attribution, photoId }) => `
+<section class="statement">
+  <div class="statement__media">
+    ${Photo(
+      { id: photoId, shot: 'Service in progress', alt: 'TotalVac service in progress', ratio: '2 / 1' },
+      { sizes: '100vw' }
+    )}
+  </div>
+  <div class="shell statement__inner">
+    ${eyebrow ? `<p class="eyebrow">${eyebrow}</p>` : ''}
+    <p class="statement__text" data-reveal>${statement}</p>
+    ${attribution ? `<p class="statement__attribution">${attribution}</p>` : ''}
+  </div>
+</section>`;
 
 export const IndustryCard = (industry) => `
-<a class="card card--dark" href="/industries/#${industry.id}">
+<a class="card" href="/industries/#${industry.id}">
   <h3>${industry.title}</h3>
   <p>${industry.short}</p>
   <span class="card__cta">Read more ${iconArrow(14)}</span>
@@ -172,6 +211,95 @@ export const Marquee = ({ items, variant = '' }) => {
 </div>`;
 };
 
+/**
+ * Coverage map.
+ *
+ * A drawn corridor map renders immediately with no third party request. The
+ * interactive Google map loads only when the visitor asks for it, so no request
+ * leaves the browser for a third party until they click. There is no API key
+ * and no tracking script.
+ */
+export const CoverageMap = ({ query }) => `
+<div class="coverage">
+  <div class="coverage__figure" data-map-facade>
+    <svg class="coverage__svg" viewBox="0 0 ${MAP_SIZE.w} ${MAP_SIZE.h}" role="img"
+      aria-label="Map of southern Ontario showing the TotalVac service area from Stratford east to Toronto, including Kitchener, Waterloo, Cambridge, Guelph, Brantford, Caledonia, Hamilton, Burlington, Oakville and Mississauga">
+      <defs>
+        <linearGradient id="coverageLand" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#141b22"/>
+          <stop offset="100%" stop-color="#0e141a"/>
+        </linearGradient>
+        <radialGradient id="coverageGlow" cx="42%" cy="46%" r="52%">
+          <stop offset="0%" stop-color="#2D8CFF" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#2D8CFF" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <rect width="${MAP_SIZE.w}" height="${MAP_SIZE.h}" fill="url(#coverageLand)"/>
+      <ellipse cx="${MAP_SIZE.w * 0.44}" cy="${MAP_SIZE.h * 0.46}" rx="${MAP_SIZE.w * 0.42}"
+        ry="${MAP_SIZE.h * 0.42}" fill="url(#coverageGlow)"/>
+
+      <path d="${LAKE_ONTARIO}" fill="#0a1c2e" stroke="#2D8CFF" stroke-opacity="0.35" stroke-width="1.2"/>
+      <path d="${LAKE_ERIE}" fill="#0a1c2e" stroke="#2D8CFF" stroke-opacity="0.35" stroke-width="1.2"/>
+      <path d="${GRAND_RIVER}" fill="none" stroke="#3f7fb8" stroke-opacity="0.55" stroke-width="1.6"/>
+
+      <g class="coverage__roads">
+        ${HIGHWAYS.map(
+          (road) =>
+            `<path d="${road.d}" fill="none" stroke="#AEB9C2" stroke-opacity="${
+              road.major ? '0.5' : '0.28'
+            }" stroke-width="${road.major ? 2 : 1.3}" stroke-linecap="round"/>`
+        ).join('\n        ')}
+      </g>
+
+      <g class="coverage__shields">
+        ${HIGHWAYS.filter((road) => road.major)
+          .map(
+            (road) => `<g>
+          <rect x="${road.x - 15}" y="${road.y - 10}" width="30" height="19" rx="4"
+            fill="#0B1015" stroke="#73818C" stroke-opacity="0.7"/>
+          <text x="${road.x}" y="${road.y + 4}" text-anchor="middle" fill="#AEB9C2"
+            font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600">${road.label}</text>
+        </g>`
+          )
+          .join('\n        ')}
+      </g>
+
+      <text x="${MAP_SIZE.w - 96}" y="${MAP_SIZE.h - 176}" fill="#5f7d99"
+        font-family="Inter, system-ui, sans-serif" font-size="12" letter-spacing="2.5"
+        text-anchor="middle">LAKE ONTARIO</text>
+      <text x="${MAP_SIZE.w - 150}" y="${MAP_SIZE.h - 22}" fill="#5f7d99"
+        font-family="Inter, system-ui, sans-serif" font-size="12" letter-spacing="2.5"
+        text-anchor="middle">LAKE ERIE</text>
+
+      ${CITIES.map((city, i) => {
+        const label = CITY_LABELS[city.label] || {};
+        const dy = label.dy || 0;
+        const flip = Boolean(label.flip);
+        return `<g class="coverage__point" style="--i:${i}">
+        <circle cx="${city.x}" cy="${city.y}" r="${city.primary ? 6.5 : 4}"
+          fill="${city.primary ? '#2D8CFF' : '#F5F4EF'}" stroke="#0B1015" stroke-width="1.5"/>
+        <text x="${city.x + (flip ? -10 : 10)}" y="${city.y + dy + 4}"
+          text-anchor="${flip ? 'end' : 'start'}"
+          fill="${city.primary ? '#F5F4EF' : '#C4CDD5'}"
+          font-family="Inter, system-ui, sans-serif"
+          font-size="${city.primary ? 14 : 12.5}"
+          font-weight="${city.primary ? 600 : 400}"
+          paint-order="stroke" stroke="#0B1015" stroke-width="3" stroke-linejoin="round">${city.label}</text>
+      </g>`;
+      }).join('\n      ')}
+    </svg>
+
+    <div class="coverage__load">
+      <p>Interactive map loads only when you ask, so nothing is requested from Google until you click.</p>
+      <button class="btn btn--ghost-light" type="button" data-map-load
+        data-map-src="https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=9&output=embed">
+        Load interactive map
+      </button>
+    </div>
+  </div>
+</div>`;
+
 /** Testimonials, or the commitments block while none are approved. */
 export const Testimonials = ({ approved, testimonials, commitments }) => {
   if (approved && testimonials.length) {
@@ -219,6 +347,8 @@ export default {
   Notice,
   FAQAccordion,
   PhotoPanel,
+  StatementBand,
+  CoverageMap,
   Marquee,
   Testimonials,
   FinalCTA

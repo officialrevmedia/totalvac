@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url';
 import { siteConfig, siteUrl, domainConfirmed, hasPhone, hasEmail } from './src/config/siteConfig.mjs';
 import { services } from './src/content/services.mjs';
 import { faqs } from './src/content/site.mjs';
-import { SkipLink, UtilityBar, SiteHeader, MobileMenu, StickyMobileActions, SiteFooter } from './src/components/layout.mjs';
+import { SkipLink, SiteHeader, MobileMenu, StickyMobileActions, SiteFooter } from './src/components/layout.mjs';
 import { photoRegistry, placeholderSvg } from './src/components/media.mjs';
 import { page as homePage } from './src/templates/home.mjs';
 import { overviewPage, detailPage } from './src/templates/services.mjs';
@@ -144,6 +144,29 @@ const organisationSchema = () => {
     data.areaServed = { '@type': 'Place', name: siteConfig.serviceArea };
   }
   if (siteConfig.hours) data.openingHours = siteConfig.hours;
+
+  /* What the business actually offers, so search engines can associate the
+     services with the area rather than guessing from page copy. */
+  data.hasOfferCatalog = {
+    '@type': 'OfferCatalog',
+    name: 'Vacuum and liquid waste services',
+    itemListElement: services.map((service) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: service.title,
+        description: service.cardSummary,
+        url: `${siteUrl()}/services/${service.slug}/`
+      }
+    }))
+  };
+  data.knowsAbout = [
+    'Grease trap cleaning',
+    'Catch basin cleaning',
+    'Liquid waste removal',
+    'Tank and sump pump-outs',
+    'Site dewatering'
+  ];
   const links = Object.values(siteConfig.socialLinks || {});
   if (links.length) data.sameAs = links;
   return data;
@@ -209,14 +232,13 @@ ${canonical ? `<link rel="canonical" href="${canonical}">` : '<!-- Canonical URL
 <meta property="og:title" content="${page.title}">
 <meta property="og:description" content="${page.description}">
 ${canonical ? `<meta property="og:url" content="${canonical}">` : ''}
-<meta property="og:image" content="${siteUrl()}/assets/brand/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image" content="${siteUrl()}${page.ogImage || '/assets/brand/og-image.png'}">
+${page.ogImage ? '' : '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">'}
 <meta property="og:image:alt" content="TotalVac Solutions. Grease trap, catch basin and liquid waste services.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${page.title}">
 <meta name="twitter:description" content="${page.description}">
-<meta name="twitter:image" content="${siteUrl()}/assets/brand/og-image.png">
+<meta name="twitter:image" content="${siteUrl()}${page.ogImage || '/assets/brand/og-image.png'}">
 
 <link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
 <link rel="icon" href="/assets/brand/favicon-32.png" sizes="32x32" type="image/png">
@@ -260,7 +282,6 @@ ${schemas
   </div>
 </div>
 ${SkipLink()}
-${UtilityBar()}
 ${SiteHeader(page.route)}
 ${MobileMenu(page.route)}
 
@@ -361,6 +382,8 @@ write(
 
 /* Sitemap and robots */
 const indexable = pages.filter((page) => !page.noindex);
+const buildDate = new Date().toISOString().slice(0, 10);
+
 write(
   'sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>
@@ -369,8 +392,9 @@ ${indexable
   .map(
     (page) => `  <url>
     <loc>${siteUrl()}${page.route}</loc>
+    <lastmod>${buildDate}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>${page.route === '/' ? '1.0' : '0.7'}</priority>
+    <priority>${page.route === '/' ? '1.0' : page.route.startsWith('/services/') ? '0.8' : '0.6'}</priority>
   </url>`
   )
   .join('\n')}

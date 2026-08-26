@@ -44,8 +44,11 @@ const ratioToSize = (ratio) => {
  */
 export const Photo = (photo, opts = {}) => {
   const { className = '', priority = false, sizes = '(min-width: 900px) 50vw, 100vw' } = opts;
-  const { width, height } = ratioToSize(photo.ratio || '4 / 3');
   const sourced = photoMeta[photo.id] || null;
+  /* The frame follows the file. A box that does not match the photograph is
+     what crops heads, trailers and hose ends out of shot. */
+  const ratio = (sourced && sourced.ratio) || photo.ratio || '4 / 3';
+  const { width, height } = ratioToSize(ratio);
   const hasJpg = available(photo.id, 'jpg');
   photoRegistry.set(photo.id, { ...photo, sourced, present: hasJpg });
 
@@ -53,24 +56,37 @@ export const Photo = (photo, opts = {}) => {
 
   if (hasJpg) {
     const alt = (sourced && sourced.alt) || photo.alt;
+
+    /* Responsive candidates. The browser downloads the smallest file that
+       covers the slot, which is most of the weight saving on phones. */
+    const widths = [640, 1024, 1600, 2200];
+    const setFor = (ext) => {
+      const parts = widths
+        .filter((w) => available(`${photo.id}-${w}`, ext))
+        .map((w) => `/assets/img/${photo.id}-${w}.${ext} ${w}w`);
+      if (available(photo.id, ext)) parts.push(`/assets/img/${photo.id}.${ext} 2400w`);
+      return parts.join(', ');
+    };
+
+    const avif = setFor('avif');
+    const webp = setFor('webp');
+    const jpg = setFor('jpg');
+
     const sources = [];
-    if (available(photo.id, 'avif')) {
-      sources.push(`<source type="image/avif" srcset="/assets/img/${photo.id}.avif" sizes="${sizes}">`);
-    }
-    if (available(photo.id, 'webp')) {
-      sources.push(`<source type="image/webp" srcset="/assets/img/${photo.id}.webp" sizes="${sizes}">`);
-    }
+    if (avif) sources.push(`<source type="image/avif" srcset="${avif}" sizes="${sizes}">`);
+    if (webp) sources.push(`<source type="image/webp" srcset="${webp}" sizes="${sizes}">`);
+
     return `
-<figure class="media ${className}" style="aspect-ratio:${photo.ratio}">
+<figure class="media ${className}" style="aspect-ratio:${ratio}">
   <picture>
     ${sources.join('\n    ')}
-    <img src="/assets/img/${photo.id}.jpg" alt="${alt}" width="${width}" height="${height}" ${loading}>
+    <img src="/assets/img/${photo.id}.jpg"${jpg ? ` srcset="${jpg}" sizes="${sizes}"` : ''} alt="${alt}" width="${width}" height="${height}" ${loading}>
   </picture>
 </figure>`;
   }
 
   return `
-<figure class="media ${className}" style="aspect-ratio:${photo.ratio}" data-photo-placeholder="${photo.id}">
+<figure class="media ${className}" style="aspect-ratio:${ratio}" data-photo-placeholder="${photo.id}">
   <img src="/assets/img/placeholder-${photo.id}.svg" alt="Placeholder for site photography. Required shot: ${photo.shot}." width="${width}" height="${height}" ${loading}>
 </figure>`;
 };

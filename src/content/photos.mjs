@@ -22,46 +22,55 @@
    equipment once it can be shot. */
 export const suppliedPhotos = {
   'vacuum-trailer-hero': {
+    ratio: '3 / 2',
     alt: 'TotalVac technician guiding a vacuum hose into a ground access point beside a branded TotalVac trailer at a loading dock',
     origin: 'Supplied by TotalVac',
     kind: 'Generated image'
   },
   'equipment-detail': {
+    ratio: '2 / 1',
     alt: 'TotalVac vacuum trailer with tank and hose reel parked outside a commercial building',
     origin: 'Supplied by TotalVac',
     kind: 'Generated image'
   },
   'property-context': {
+    ratio: '2 / 1',
     alt: 'TotalVac vacuum trailer connected to a service access point at a restaurant service entrance in the evening',
     origin: 'Supplied by TotalVac',
     kind: 'Generated image'
   },
   'crew-and-equipment': {
+    ratio: '3 / 2',
     alt: 'TotalVac vacuum trailer with tank, hose reel and pump shown against a dark backdrop',
     origin: 'Supplied by TotalVac',
     kind: 'Generated image'
   },
   'grease-trap-service': {
+    ratio: '3 / 2',
     alt: 'Technician lowering a vacuum hose into a service access hatch with safety cones set around the work area',
     origin: 'Supplied by TotalVac',
     kind: 'Generated image'
   },
   'catch-basin-service': {
+    ratio: '3 / 2',
     alt: 'Technician in high visibility clothing vacuuming a catch basin in a commercial parking lot with cones in place',
     origin: 'Supplied by TotalVac',
     kind: 'Generated image'
   },
   'site-dewatering': {
+    ratio: '3 / 2',
     alt: 'Technician removing standing water from an excavation on a construction site with a vacuum hose',
     origin: 'Supplied by TotalVac',
     kind: 'Generated image'
   },
   'tank-sump-pump-out': {
+    ratio: '3 / 2',
     alt: 'Technician coupling a vacuum hose to a stainless steel tank fitting inside a mechanical room',
     origin: 'Supplied by TotalVac',
     kind: 'Generated image'
   },
   'liquid-waste-removal': {
+    ratio: '3 / 2',
     alt: 'Operator in protective clothing handling a vacuum hose beside a liquid waste tanker',
     origin: 'Supplied by TotalVac',
     kind: 'Photograph, source and licence to be confirmed',

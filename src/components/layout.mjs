@@ -24,17 +24,6 @@ const isCurrent = (href, route) => (route === href ? ' aria-current="page"' : ''
 
 export const SkipLink = () => `<a class="skip-link" href="#main">Skip to content</a>`;
 
-export const UtilityBar = () => `
-<div class="utility-bar">
-  <div class="shell utility-bar__inner">
-    <p class="utility-bar__left">${siteConfig.descriptor}</p>
-    <div class="utility-bar__right">
-      <a class="utility-bar__link" href="${phoneHref()}">${iconPhone()}<span>${phoneLabel()}</span></a>
-      <span class="utility-bar__note">${availabilityLabel()}</span>
-    </div>
-  </div>
-</div>`;
-
 export const SiteHeader = (route = '/') => `
 <header class="site-header" data-header>
   <div class="shell site-header__inner">
@@ -52,7 +41,7 @@ export const SiteHeader = (route = '/') => `
     </nav>
 
     <div class="header-actions">
-      <a class="btn btn--ghost-light" href="${phoneHref()}">${iconPhone()}<span>${phoneLabel()}</span></a>
+      <a class="header-phone" href="${phoneHref()}">${iconPhone(16)}<span>${phoneLabel()}</span></a>
       <a class="btn" href="/contact/">Request Service ${iconArrow()}</a>
     </div>
 
@@ -167,10 +156,14 @@ export const SiteFooter = () => {
   <div class="shell">
     <div class="site-footer__bottom">
       <p>&copy; ${year} ${siteConfig.legalBusinessName || siteConfig.businessName}. All rights reserved.</p>
-      <p><a href="/privacy/">Privacy</a></p>
+      <p class="site-footer__credit">
+        <a href="/privacy/">Privacy</a>
+        <span aria-hidden="true">&middot;</span>
+        Website by <a href="https://revmedia.ca" rel="noopener">revmedia</a>
+      </p>
     </div>
   </div>
 </footer>`;
 };
 
-export default { SkipLink, UtilityBar, SiteHeader, MobileMenu, StickyMobileActions, Breadcrumbs, SiteFooter };
+export default { SkipLink, SiteHeader, MobileMenu, StickyMobileActions, Breadcrumbs, SiteFooter };

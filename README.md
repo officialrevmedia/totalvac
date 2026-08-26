@@ -161,12 +161,27 @@ Filled buttons use Deep Blue rather than Electric Blue so white label text clear
 | Image hover | Photographs scale by three percent over 700ms inside cards and split panels | Static image |
 | Intro screen | Logo on black with a loading bar, once per browser session, cleared on load with a hard stop at 2.2 seconds | CSS clears it at 1.15 seconds with no JavaScript |
 | Service marquee | A slow band of service names under the hero, paused on hover or focus | Static list |
+| Statement band | Full width photograph with a slow parallax and the brand promise over it | Static image |
+| Coverage map | Service area drawn as SVG, route and pins animate in, interactive map loads only on request | Static map, no third party request |
 
 Nothing above blocks reading, shifts text or delays interaction. All of it is switched off under `prefers-reduced-motion`, and the site is fully usable with JavaScript disabled.
 
 All motion respects `prefers-reduced-motion`. With motion reduced, transitions are disabled, the flow ring stops rotating and reveal animations resolve to their final state. With JavaScript disabled, accordion panels stay open and readable, all navigation works, and content is fully accessible.
 
 ---
+
+## Search and performance
+
+| Area | What is in place |
+| --- | --- |
+| Metadata | Unique title and meta description on all fourteen pages, canonical tags, Open Graph and Twitter cards, per service social images |
+| Structured data | ProfessionalService with `areaServed` for twelve municipalities and an `OfferCatalog` of the five services, BreadcrumbList on interior pages, FAQPage where the questions are visible, Service schema on each detail page |
+| Navigation | Visible breadcrumbs on every interior page, cross links between services, industries, FAQ and contact, service links in the footer |
+| Local pages | One service area page with a drawn coverage map and a municipality grid, rather than a set of thin city pages that read as spam |
+| Images | Four responsive widths per photograph in JPEG and WebP, explicit width and height, lazy loading below the fold, descriptive alt text |
+| Crawling | sitemap.xml with lastmod and weighted priorities, robots.txt, .nojekyll, custom 404 marked noindex |
+
+Indexing stays switched off while the site is on the temporary address. See the note at the end of START-HERE.md.
 
 ## Build guards
 

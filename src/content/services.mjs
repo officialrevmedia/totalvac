@@ -493,6 +493,7 @@ export const services = [
  *  section on the services overview page rather than a thin standalone page. */
 export const maintenanceCard = {
   slug: null,
+  photoId: 'equipment-detail',
   href: '/services/#scheduled-maintenance',
   title: 'Scheduled Maintenance',
   cardSummary:

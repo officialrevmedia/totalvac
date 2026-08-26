@@ -35,6 +35,7 @@ export const overviewPage = () => ({
   ],
   body: `
 ${PageHero({
+  trail: [{ label: 'Home', href: '/' }, { label: 'Services', href: '/services/' }],
   eyebrow: 'SERVICES',
   title: 'Vacuum services built around the site.',
   lede: 'Every pump-out begins with the same questions: what is the material, how much is there, where is it located, how can it be accessed, and where can it be lawfully handled? TotalVac reviews those details first, then coordinates the right service approach for approved non-hazardous liquid waste.'
@@ -133,6 +134,7 @@ export const detailPage = (service) => {
     output: `services/${service.slug}/index.html`,
     title: withArea(service.metaTitle),
     description: service.metaDescription,
+    ogImage: `/assets/img/${service.photo.id}-1600.jpg`,
     faqs: service.faqs,
     serviceSchema: {
       name: service.title,
@@ -188,7 +190,7 @@ export const detailPage = (service) => {
   </div>
 </section>
 
-<section class="section surface-ink">
+<section class="section surface-white">
   <div class="shell">
     ${SectionHeading({ eyebrow: 'SERVICE PROCESS', title: 'Four steps, start to finish.' })}
     ${ProcessSteps(service.process)}
