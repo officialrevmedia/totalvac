@@ -10,12 +10,12 @@ Pick one of the three paths below. Path A is recommended.
 
 The site is set up for a temporary GitHub Pages address:
 
-- `domain` is `https://officialrevmedia.github.io/totalvac-solutions`
+- `domain` is `https://officialrevmedia.github.io/totalvac`
 - `publicIndexing` is `false`, so every page is noindex and robots.txt disallows crawling. This keeps the temporary URL out of search results so it cannot compete with the real domain later
 - Service area is Kitchener, Waterloo and the Greater Toronto Area
 - The deploy workflow downloads the sourced photography on every build, so the images do not need to be committed
 
-If the repository is named something other than `totalvac-solutions`, or it lives under a different account, update `domain` in `src/config/siteConfig.mjs` and set the `BASE_PATH` repository variable to match. Both are one line changes.
+If the repository is renamed, or it moves to a different account, update `domain` in `src/config/siteConfig.mjs` and the `BASE_PATH` repository variable to match. Both are one line changes.
 
 ---
 
@@ -25,17 +25,17 @@ Best for ongoing work. You edit content, push, and the live site updates in abou
 
 ### 1. Create the repository
 
-On GitHub, inside the `officialrevmedia` organisation, create a new repository named `totalvac-solutions`. Do not add a README, licence or gitignore, since this folder already has them.
+On GitHub, inside the `officialrevmedia` organisation, create a new repository named `totalvac`. Do not add a README, licence or gitignore, since this folder already has them.
 
 ### 2. Push this folder
 
 ```bash
-cd totalvac-solutions
+cd totalvac
 git init
 git add .
 git commit -m "TotalVac Solutions website"
 git branch -M main
-git remote add origin https://github.com/officialrevmedia/totalvac-solutions.git
+git remote add origin https://github.com/officialrevmedia/totalvac.git
 git push -u origin main
 ```
 
@@ -43,7 +43,7 @@ git push -u origin main
 
 Repository, Settings, Pages, Build and deployment, Source: **GitHub Actions**.
 
-Then add one repository variable so the assets resolve from the project subfolder. Settings, Secrets and variables, Actions, Variables, New repository variable: name `BASE_PATH`, value `/totalvac-solutions`. Remove this variable once a custom domain is attached.
+Then add one repository variable so the assets resolve from the project subfolder. Settings, Secrets and variables, Actions, Variables, New repository variable: name `BASE_PATH`, value `/totalvac`. Remove this variable once a custom domain is attached.
 
 That is the only setting to change. `.github/workflows/deploy.yml` handles the rest. It checks the content rules, builds the site and publishes it on every push to `main`.
 
@@ -86,10 +86,10 @@ Upload the contents of `dist/` to Netlify, Vercel, Cloudflare Pages or standard 
 
 ## Deploying to a project subfolder
 
-If the site has to live at `officialrevmedia.github.io/totalvac-solutions/` rather than at a domain root, build with the base path so every asset and link resolves:
+If the site has to live at `officialrevmedia.github.io/totalvac/` rather than at a domain root, build with the base path so every asset and link resolves:
 
 ```bash
-BASE_PATH=/totalvac-solutions npm run build
+BASE_PATH=/totalvac npm run build
 ```
 
 In the Actions workflow, add the same variable to the build step:
@@ -98,7 +98,7 @@ In the Actions workflow, add the same variable to the build step:
       - name: Build site
         run: node build.mjs
         env:
-          BASE_PATH: /totalvac-solutions
+          BASE_PATH: /totalvac
 ```
 
 Once a custom domain is attached, remove the base path and rebuild.

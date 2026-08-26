@@ -10,7 +10,7 @@ This folder is the complete TotalVac Solutions website, ready to upload to GitHu
 
 On GitHub, in the `officialrevmedia` organisation, click **New repository**.
 
-- Name: `totalvac-solutions`
+- Name: `totalvac`
 - Do not tick Add a README, Add .gitignore or Choose a licence. This folder already has them
 
 ### 2. Upload the files
@@ -26,7 +26,7 @@ git init
 git add .
 git commit -m "TotalVac Solutions website"
 git branch -M main
-git remote add origin https://github.com/officialrevmedia/totalvac-solutions.git
+git remote add origin https://github.com/officialrevmedia/totalvac.git
 git push -u origin main
 ```
 
@@ -39,7 +39,7 @@ git push -u origin main
 **Settings**, **Secrets and variables**, **Actions**, **Variables** tab, **New repository variable**.
 
 - Name: `BASE_PATH`
-- Value: `/totalvac-solutions`
+- Value: `/totalvac`
 
 This tells the build the site sits in a subfolder. Use a different value if you named the repository something else, and update `domain` in `src/config/siteConfig.mjs` to match.
 
@@ -50,10 +50,20 @@ Open the **Actions** tab. The run takes under a minute.
 ### 6. Open the site
 
 ```
-https://officialrevmedia.github.io/totalvac-solutions/
+https://officialrevmedia.github.io/totalvac/
 ```
 
 Every future push to `main` redeploys automatically.
+
+---
+
+## If the URL is showing this README instead of the site
+
+That means Pages is serving the repository root, so GitHub rendered `README.md` as the homepage. The fix takes one dropdown:
+
+**Settings**, **Pages**, Build and deployment, Source: **Deploy from a branch**, branch `main`, folder **`/docs`**, then **Save**.
+
+Give it a minute and the real site appears. The `docs/` folder in this repository is already built for `https://officialrevmedia.github.io/totalvac/`.
 
 ---
 
