@@ -196,6 +196,28 @@ export const FinalCTA = ({
   ${flowRing()}
 </section>`;
 
+/** Credential strip. Renders only what the client has confirmed in writing. */
+export const Credentials = ({ insured, insuranceStatement, licenses = [], hours }) => {
+  const items = [];
+  if (insured && insuranceStatement) items.push(insuranceStatement);
+  licenses.forEach((licence) => items.push(licence));
+  if (hours) items.push(`Open ${hours}`);
+  if (!items.length) return '';
+  return `
+<ul class="credentials" data-reveal>
+  ${items
+    .map(
+      (item) => `<li>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M3 8.4l3.2 3.1L13 4.8" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>${item}
+  </li>`
+    )
+    .join('\n  ')}
+</ul>`;
+};
+
 /** Scrolling descriptor band. Slow, pausable, and static under reduced motion. */
 export const Marquee = ({ items, variant = '' }) => {
   const run = items
@@ -347,6 +369,7 @@ export default {
   Notice,
   FAQAccordion,
   PhotoPanel,
+  Credentials,
   StatementBand,
   CoverageMap,
   Marquee,

@@ -4,6 +4,7 @@ import { approved as testimonialsApproved, testimonials, commitments } from '../
 import { siteConfig } from '../config/siteConfig.mjs';
 import {
   Hero,
+  Credentials,
   Marquee,
   Testimonials,
   StatementBand,
@@ -94,6 +95,17 @@ ${TrustStrip({
   categories: trustCategories,
   note: 'One call for routine pump-outs, scheduled maintenance, and urgent liquid waste needs.'
 })}
+
+<section class="section--tight surface-white" style="padding-block:clamp(1.5rem,3vw,2.5rem)">
+  <div class="shell">
+    ${Credentials({
+      insured: siteConfig.insured,
+      insuranceStatement: siteConfig.insuranceStatement,
+      licenses: siteConfig.licenses,
+      hours: siteConfig.hours
+    })}
+  </div>
+</section>
 
 <section class="section" id="services">
   <div class="shell">

@@ -12,17 +12,18 @@
 export const siteConfig = {
   /* Identity */
   businessName: 'TotalVac Solutions',
-  legalBusinessName: null, // TO CONFIRM: full legal entity name
+  legalBusinessName: null, // TO CONFIRM: full legal entity name as registered
   descriptor: 'Grease Trap • Catch Basin • Liquid Waste Services',
   brandPromise: 'Clean execution. Clear communication. Total response.',
 
   /* Contact */
-  phone: null, // TO CONFIRM: primary phone, digits and formatting, example: '905 555 0134'
-  phoneHref: null, // TO CONFIRM: tel link value, example: '+19055550134'
-  email: null, // TO CONFIRM: service email, example: 'info@domain.ca'
-  // Temporary GitHub Pages address while the permanent domain is chosen.
-  // Replace with the real domain at launch, then set publicIndexing to true.
-  domain: 'https://officialrevmedia.github.io/totalvac',
+  phone: '(437) 908-2330',
+  phoneHref: '+14379082330',
+  email: 'totalvacsolutions@gmail.com',
+  // The permanent domain. Canonical tags, the sitemap and social metadata all
+  // point here. The files are still served from the GitHub preview address
+  // until DNS is connected, which is why temporaryDomain stays true for now.
+  domain: 'https://totalvacsolutions.com',
   temporaryDomain: true,
 
   /* Search engine indexing. Kept off while the site sits on a temporary address
@@ -31,7 +32,7 @@ export const siteConfig = {
   publicIndexing: false,
 
   /* Location and coverage */
-  baseCity: null, // TO CONFIRM: where the trailer is based
+  baseCity: 'Kitchener',
   serviceArea: 'Kitchener, Waterloo and the Greater Toronto Area',
   // Confirmed coverage. Add a city only when TotalVac genuinely services it.
   serviceAreaList: [
@@ -50,25 +51,30 @@ export const siteConfig = {
   ],
   // Compact form used inside page titles, where character count matters.
   serviceAreaShort: 'Kitchener Waterloo and the GTA',
-  address: null, // TO CONFIRM: street address, or leave null for a service area business
-  showPublicAddress: false, // keep false until the client confirms a public address
-  hours: null, // TO CONFIRM: operating hours
+  // Held for Google verification only. The client has asked that it stays
+  // hidden from the public, so showPublicAddress must remain false.
+  address: '15 David Bergey Drive, Kitchener, Ontario',
+  showPublicAddress: false,
+  hours: '7:00am to 9:00pm, seven days a week',
 
   /* Availability */
   emergencyAvailable: false,
-  emergencyLabel: 'Urgent service availability varies. Call to confirm.',
+  emergencyLabel: 'Open 7:00am to 9:00pm, seven days a week. Call to confirm urgent service.',
 
   /* Credentials: never display anything here until it is verified in writing */
-  insured: false,
-  insuranceStatement: null,
-  licenses: [],
+  insured: true,
+  insuranceStatement: 'Environmental insurance in place',
+  // Confirmed by the client. Ask for the certificate and the permit document so
+  // the permit number and full name can be shown, which reads far stronger.
+  licenses: ['Valid ESAR permit'],
   certifications: [],
 
   /* Waste handling */
-  acceptedWasteTypes: [], // TO CONFIRM: confirmed accepted materials
+  acceptedWasteTypes: ['Fats, oils and grease (FOG)'], // TO CONFIRM: the rest of the accepted list
   prohibitedWasteTypes: [], // TO CONFIRM
   hazardousWasteAccepted: false,
-  disposalStatement: null, // TO CONFIRM: verified disposal process and approved facilities
+  disposalStatement:
+    'Collected fats, oils and grease are taken to the municipal wastewater treatment plant, where the material is processed and converted into energy for the region. Handling for any other accepted material is confirmed with the request.',
 
   /* Integrations */
   formEndpoint: null, // TO CONFIRM: form backend URL, example: Formspree, Basin, Netlify

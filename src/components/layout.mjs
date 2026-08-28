@@ -142,6 +142,12 @@ export const SiteFooter = () => {
         <li>${hasServiceArea() ? `Serving ${serviceAreaLabel()}` : 'Serving our local region'}</li>
         <li>${availabilityLabel()}</li>
         ${
+          siteConfig.insured && siteConfig.insuranceStatement
+            ? `<li>${siteConfig.insuranceStatement}</li>`
+            : ''
+        }
+        ${siteConfig.licenses.map((licence) => `<li>${licence}</li>`).join('\n        ')}
+        ${
           siteConfig.showPublicAddress && siteConfig.address
             ? `<li>${siteConfig.address}</li>`
             : ''

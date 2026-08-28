@@ -269,6 +269,18 @@ ${PageHero({
       <div class="spec-panel" data-reveal style="background:var(--ink);border-color:var(--line-dark);color:var(--warm)">
         <h3 style="color:var(--warm)">Confirmed in advance</h3>
         ${CheckList(aboutConfirmList)}
+        ${
+          siteConfig.insured || siteConfig.licenses.length
+            ? `<div style="margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid var(--line-dark)">
+          <h3 style="color:var(--warm)">Credentials</h3>
+          ${CheckList(
+            [siteConfig.insured && siteConfig.insuranceStatement ? siteConfig.insuranceStatement : null]
+              .concat(siteConfig.licenses)
+              .filter(Boolean)
+          )}
+        </div>`
+            : ''
+        }
       </div>
     </div>
   </div>

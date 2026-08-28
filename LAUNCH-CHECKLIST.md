@@ -15,27 +15,28 @@ Items marked OPEN are currently blocking a truthful launch. The build prints the
 ## 2. Domain and email
 
 - [ ] The site is currently on a temporary GitHub Pages address. Search indexing is switched off: every page is noindex and robots.txt disallows crawling
-- [ ] OPEN. Confirm the permanent domain, then set `domain`, set `temporaryDomain` to false, and set `publicIndexing` to true. Canonical tags, the sitemap host and robots.txt all follow from this
+- [x] Domain confirmed: totalvacsolutions.com, already registered by the client
+- [ ] OPEN. Get DNS access, add the records, then set `temporaryDomain` to false and `publicIndexing` to true. See DOMAIN-AND-LAUNCH.md
 - [ ] If the GitHub repository name changes, update the `BASE_PATH` repository variable to match, or remove it once a custom domain is attached
 - [ ] Confirm the registrar holding the domain and who has access
-- [ ] OPEN. Confirm the service email address, then set `email`
+- [x] Email confirmed: totalvacsolutions@gmail.com
 - [ ] Confirm any additional mailboxes required, for example dispatch or billing
 
 ## 3. Contact and availability
 
-- [ ] OPEN. Confirm the primary phone number, then set both `phone` and `phoneHref`
+- [x] Phone confirmed: (437) 908-2330. Live on the site, and must match the Google listing and business card
 - [ ] Test every phone link on a real mobile device once the number is live
-- [ ] OPEN. Confirm hours of operation, then set `hours`
+- [x] Hours confirmed: 7:00am to 9:00pm, seven days a week
 - [ ] OPEN. Confirm after hours and urgent availability. Only set `emergencyAvailable: true` if urgent service can genuinely be delivered. The emergency FAQ answer and the availability line change automatically
 - [ ] Decide whether an emergency phone number differs from the main line
 
 ## 4. Location and coverage
 
-- [ ] OPEN. Confirm the base city, then set `baseCity`
+- [x] Base city confirmed: Kitchener
 - [x] Service area confirmed as Kitchener, Waterloo and the Greater Toronto Area. Set in `serviceArea`, `serviceAreaShort` and `serviceAreaList`
 - [ ] Confirm whether specific GTA municipalities should be listed individually for local search, for example Mississauga, Brampton or Vaughan, and whether Cambridge and Guelph are served
 - [ ] Confirm the specific cities genuinely served, then set `serviceAreaList`. Only list places the business will actually travel to
-- [ ] Decide whether a public street address is shown. If the trucks are based at a private location, leave `showPublicAddress: false`
+- [x] Address held for Google verification only: 15 David Bergey Drive, Kitchener. Client asked that it stays hidden, so `showPublicAddress` remains false
 - [ ] If a public address is confirmed, set `address` and `showPublicAddress: true`
 
 ## 5. Services offered
@@ -48,15 +49,17 @@ Items marked OPEN are currently blocking a truthful launch. The build prints the
 
 ## 6. Waste handling and disposal
 
-- [ ] OPEN. Confirm the accepted non-hazardous waste types, then set `acceptedWasteTypes`
+- [ ] OPEN. FOG is confirmed. Complete the rest of the accepted materials list
 - [ ] OPEN. Confirm prohibited materials, then set `prohibitedWasteTypes`
-- [ ] OPEN. Confirm the disposal process and the approved receiving facilities, then set `disposalStatement`. Until this is set, the FAQ gives a cautious answer instead of a disposal claim
+- [x] Disposal confirmed: FOG goes to the municipal wastewater treatment plant and is converted into energy for the region. Live in the FAQ
 - [ ] Confirm hazardous waste is not accepted, or supply the licensing, transport process and disposal capability that would allow it. `hazardousWasteAccepted` stays false otherwise
 
 ## 7. Credentials
 
-- [ ] OPEN. Confirm insurance coverage and the exact wording permitted, then set `insured` and `insuranceStatement`
-- [ ] OPEN. Confirm licences and permits held, with numbers where they are published, then populate `licenses`
+- [x] Environmental insurance confirmed and displayed
+- [ ] OPEN. Obtain the insurance certificate for the file
+- [x] ESAR permit confirmed and displayed
+- [ ] OPEN. Obtain the permit document, then display its full name and number, which reads far stronger than the acronym alone
 - [ ] Confirm certifications, then populate `certifications`
 - [ ] Do not display any credential until a document has been supplied. No badge, seal or membership logo goes on the site without written permission from the issuing body
 
