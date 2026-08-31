@@ -4,45 +4,17 @@ The domain is already registered, so nothing needs to be transferred. We only ne
 
 ---
 
-## What we need from Halim
+## Status
 
-Pick whichever is easiest.
+The domain is registered and the site is configured for it. Everything on the build side is done:
 
-**Option A. Delegated access, preferred.** Add `info@revmedia.ca` as a user or delegate on the registrar account. Most registrars support this under Account, then Delegate Access or Team Members. Registration stays in Halim's name and ownership never leaves his control.
+- `domain` is set to https://totalvacsolutions.com
+- Search indexing is switched on, every page is index and follow
+- robots.txt allows crawling and points at the sitemap on the live domain
+- Canonical tags, Open Graph URLs and the sitemap all use the live domain
+- The CNAME file is generated on every build, so the domain never has to be re-entered in GitHub
 
-**Option B. Registrar login.** Send the registrar name (GoDaddy, Namecheap, Google Domains, Squarespace, whoever holds it) with the login. Change the password afterward if preferred.
-
-**Option C. Halim adds the records himself.** We send the exact records and he pastes them in. Works fine, just adds a round trip if anything is mistyped.
-
-We do not need a domain transfer, and I would not recommend one. Transfers lock the domain for 60 days and are unnecessary here.
-
----
-
-## The DNS records to add
-
-For GitHub Pages hosting, in the registrar's DNS settings:
-
-**Four A records**, all with host `@`:
-
-```
-185.199.108.153
-185.199.109.153
-185.199.110.153
-185.199.111.153
-```
-
-**One CNAME record**:
-
-```
-Host: www
-Points to: officialrevmedia.github.io
-```
-
-Delete any parked or forwarding record the registrar added automatically, otherwise it will fight these.
-
-DNS usually propagates within an hour and can take up to 24.
-
----
+The only remaining work is adding DNS records at the registrar. Step by step instructions are in START-HERE.md.
 
 ## What we do on our side
 

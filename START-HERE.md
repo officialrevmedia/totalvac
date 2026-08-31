@@ -4,20 +4,19 @@ This folder is the complete TotalVac Solutions website, ready to upload to GitHu
 
 ---
 
-## Upload it, six steps
+## Upload it, then connect the domain
 
-### 1. Create the repository
+The site is configured for **https://totalvacsolutions.com**. Search indexing is switched on, the CNAME file is written automatically on every build, and the `docs/` folder is already built and ready to serve.
 
-On GitHub, in the `officialrevmedia` organisation, click **New repository**.
+### 1. Create or open the repository
 
-- Name: `totalvac`
-- Do not tick Add a README, Add .gitignore or Choose a licence. This folder already has them
+On GitHub, in the `officialrevmedia` organisation, use the existing `totalvac` repository, or create it if it does not exist. Do not tick Add a README, Add .gitignore or Choose a licence.
 
-### 2. Upload the files
+### 2. Upload these files
 
-On the empty repository page click **uploading an existing file**, then drag in everything inside this folder. Include the hidden `.github`, `.gitignore`, `.gitattributes` and `.editorconfig` files. On a Mac press Command, Shift and Period to see hidden files.
+On the repository page use **Add file**, then **Upload files**, and drag in everything inside this folder. Include the hidden `.github`, `.gitignore`, `.gitattributes` and `.editorconfig` files. On a Mac press Command, Shift and Period to see hidden files.
 
-Then click **Commit changes**.
+If files from a previous upload are already there, delete them first so nothing stale is left behind.
 
 Terminal alternative:
 
@@ -30,40 +29,67 @@ git remote add origin https://github.com/officialrevmedia/totalvac.git
 git push -u origin main
 ```
 
-### 3. Turn on Pages
-
-**Settings**, **Pages**, Build and deployment, Source: **GitHub Actions**.
-
-### 4. Add one variable
-
-**Settings**, **Secrets and variables**, **Actions**, **Variables** tab, **New repository variable**.
-
-- Name: `BASE_PATH`
-- Value: `/totalvac`
-
-This tells the build the site sits in a subfolder. Use a different value if you named the repository something else, and update `domain` in `src/config/siteConfig.mjs` to match.
-
-### 5. Wait for the green tick
-
-Open the **Actions** tab. The run takes under a minute.
-
-### 6. Open the site
-
-```
-https://officialrevmedia.github.io/totalvac/
-```
-
-Every future push to `main` redeploys automatically.
-
----
-
-## If the URL is showing this README instead of the site
-
-That means Pages is serving the repository root, so GitHub rendered `README.md` as the homepage. The fix takes one dropdown:
+### 3. Set Pages to serve the docs folder
 
 **Settings**, **Pages**, Build and deployment, Source: **Deploy from a branch**, branch `main`, folder **`/docs`**, then **Save**.
 
-Give it a minute and the real site appears. The `docs/` folder in this repository is already built for `https://officialrevmedia.github.io/totalvac/`.
+If you prefer the automated route, set Source to **GitHub Actions** instead and the included workflow rebuilds and deploys on every push. Pick one, not both.
+
+### 4. Add the custom domain in GitHub
+
+**Settings**, **Pages**, Custom domain, enter:
+
+```
+totalvacsolutions.com
+```
+
+Click Save. GitHub will report that the domain is not yet configured, which is expected until the DNS records below are added.
+
+### 5. Add the DNS records at the registrar
+
+Sign in wherever totalvacsolutions.com is registered, open the DNS settings for the domain, and add these.
+
+**Four A records.** Host `@`, or leave the host field blank if the registrar does not use `@`:
+
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+
+**One CNAME record:**
+
+```
+Host:  www
+Value: officialrevmedia.github.io
+```
+
+Then delete anything the registrar added automatically: parking pages, forwarding rules, or a placeholder A record pointing somewhere else. Those will fight the records above and are the most common reason a domain does not resolve.
+
+Leave any MX or TXT records alone. Those handle email and verification and have nothing to do with the website.
+
+### 6. Wait, then enforce HTTPS
+
+DNS usually takes fifteen minutes to an hour, and can take up to 24. Once `https://totalvacsolutions.com` loads the site, go back to **Settings**, **Pages** and tick **Enforce HTTPS**. The certificate is issued by GitHub at no cost, and the box becomes available once the domain resolves.
+
+Check progress at any time by loading the domain in a private browser window.
+
+---
+
+## After the domain is live
+
+1. Confirm every page loads: home, the five service pages, industries, about, service area, FAQ, contact, privacy
+2. Confirm `https://totalvacsolutions.com/sitemap.xml` loads
+3. Add the property in Google Search Console and submit the sitemap
+4. Connect the request form, which is the one functional gap left. Create a free Formspree or Basin account with totalvacsolutions@gmail.com, copy the endpoint, paste it into `formEndpoint` in `src/config/siteConfig.mjs`, rebuild and push
+5. Only then build and verify the Google Business Profile. Google checks the website during verification, so the domain has to resolve first
+
+---
+
+## If the URL shows this README instead of the site
+
+That means Pages is serving the repository root, so GitHub rendered `README.md` as the homepage. Set **Settings**, **Pages**, Source to **Deploy from a branch**, branch `main`, folder **`/docs`**, then Save.
 
 ---
 
@@ -116,16 +142,10 @@ npm run preview   # builds a copy that opens by double clicking preview/index.ht
 
 ---
 
-## Important: the site is currently set to noindex
+## Search indexing is now live
 
-Every page carries a noindex tag and `robots.txt` disallows crawling, because the site sits on a temporary GitHub address. This keeps the temporary URL out of Google so it cannot compete with the real domain later.
+Every page is set to index and follow, robots.txt allows crawling, and the sitemap points at totalvacsolutions.com. Nothing further needs switching on.
 
-When the permanent domain is ready, in `src/config/siteConfig.mjs`:
+If the site ever needs to be pulled from search results temporarily, set `publicIndexing` to `false` in `src/config/siteConfig.mjs` and rebuild. That flips every page to noindex and switches robots.txt to disallow in one change.
 
-1. Set `domain` to the new address
-2. Set `temporaryDomain` to `false`
-3. Set `publicIndexing` to `true`
-
-Then add a `CUSTOM_DOMAIN` repository variable with the domain, delete the `BASE_PATH` variable, and push. Canonical tags, sitemap, robots.txt and social metadata all follow automatically.
-
-Before promoting the site, work through `LAUNCH-CHECKLIST.md`. The open items are the phone number, service email, disposal statement, form endpoint, and the two photography questions in `IMAGE-CREDITS.md`.
+Remaining items are in `LAUNCH-CHECKLIST.md`. The open ones are the form endpoint, the insurance certificate and permit document, and the full accepted materials list.

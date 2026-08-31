@@ -14,10 +14,10 @@ Items marked OPEN are currently blocking a truthful launch. The build prints the
 
 ## 2. Domain and email
 
-- [ ] The site is currently on a temporary GitHub Pages address. Search indexing is switched off: every page is noindex and robots.txt disallows crawling
+- [x] Domain live at totalvacsolutions.com. Search indexing switched on, robots.txt allows crawling, CNAME written automatically on every build
 - [x] Domain confirmed: totalvacsolutions.com, already registered by the client
-- [ ] OPEN. Get DNS access, add the records, then set `temporaryDomain` to false and `publicIndexing` to true. See DOMAIN-AND-LAUNCH.md
-- [ ] If the GitHub repository name changes, update the `BASE_PATH` repository variable to match, or remove it once a custom domain is attached
+- [ ] Add the four A records and the www CNAME at the registrar, then tick Enforce HTTPS in GitHub Pages. See START-HERE.md
+- [ ] Remove the `BASE_PATH` repository variable if it was set earlier. The site now serves from the domain root
 - [ ] Confirm the registrar holding the domain and who has access
 - [x] Email confirmed: totalvacsolutions@gmail.com
 - [ ] Confirm any additional mailboxes required, for example dispatch or billing

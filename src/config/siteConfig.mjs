@@ -20,16 +20,15 @@ export const siteConfig = {
   phone: '(437) 908-2330',
   phoneHref: '+14379082330',
   email: 'totalvacsolutions@gmail.com',
-  // The permanent domain. Canonical tags, the sitemap and social metadata all
-  // point here. The files are still served from the GitHub preview address
-  // until DNS is connected, which is why temporaryDomain stays true for now.
+  // The live domain. Canonical tags, the sitemap, social metadata and the
+  // CNAME file written into the build all follow from this one value.
   domain: 'https://totalvacsolutions.com',
-  temporaryDomain: true,
+  temporaryDomain: false,
 
-  /* Search engine indexing. Kept off while the site sits on a temporary address
-     so the GitHub URL is never indexed and does not compete with the real
-     domain later. Set to true on the day the permanent domain goes live. */
-  publicIndexing: false,
+  /* Search engine indexing. Now live: every page is indexable and robots.txt
+     allows crawling. Set back to false only if the site needs to be pulled
+     from search results temporarily. */
+  publicIndexing: true,
 
   /* Location and coverage */
   baseCity: 'Kitchener',

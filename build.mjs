@@ -420,6 +420,14 @@ Disallow: /
 /* GitHub Pages: keep paths as authored, no Jekyll processing */
 write('.nojekyll', '');
 
+/* Custom domain. GitHub Pages reads this file on every deploy, so the domain
+   never has to be re-entered in the repository settings. */
+const host = siteUrl().replace(/^https?:\/\//, '');
+if (host && !host.includes('github.io') && !host.includes('REPLACE-WITH')) {
+  write('CNAME', `${host}\n`);
+  console.log(`  CNAME written for ${host}`);
+}
+
 /* ---------------------------------------------------------------- QA guards */
 
 const htmlFiles = [];
