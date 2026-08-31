@@ -1,4 +1,4 @@
-# Indexing is switched off while the site is on a temporary address.
-# Set publicIndexing to true in src/config/siteConfig.mjs at launch.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://totalvacsolutions.com/sitemap.xml
