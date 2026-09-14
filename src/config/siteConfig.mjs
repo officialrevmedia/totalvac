@@ -79,6 +79,14 @@ export const siteConfig = {
   formEndpoint: null, // TO CONFIRM: form backend URL, example: Formspree, Basin, Netlify
   formSupportsFileUpload: false, // keep false until the backend securely supports uploads
   analyticsId: null, // TO CONFIRM: analytics id, only enable after consent approach is approved
+  // Google Ads conversion tracking. The tag ID is live. The two labels come from
+  // Google Ads > Goals > Conversions > (action) > Tag setup > Install yourself.
+  // Paste each label (the part after the slash in "send_to") and rebuild.
+  googleAds: {
+    tagId: 'AW-18342776758',
+    phoneClickLabel: null, // TO CONFIRM: label for the "Phone click (site)" conversion action
+    formSubmitLabel: null // TO CONFIRM: label for the "Contact form submit" conversion action
+  },
   socialLinks: {}, // example: { facebook: 'https://...', instagram: 'https://...' }
 
   /* Optional services. These routes are not built, not linked and not indexed

@@ -58,8 +58,8 @@ const scheduleMotif = `
   <text x="20" y="132" fill="#73818C" font-family="Inter, system-ui, sans-serif" font-size="13" letter-spacing="3">INTERVAL SET AROUND SITE USAGE</text>
 </svg>`;
 
-export const page = () => {
-  const homeFaqs = homeFaqIds.map((id) => faqs.find((f) => f.id === id)).filter(Boolean);
+export const page = (resolvedFaqs = faqs) => {
+  const homeFaqs = homeFaqIds.map((id) => resolvedFaqs.find((f) => f.id === id)).filter(Boolean);
   const cards = [...services, maintenanceCard];
 
   return {

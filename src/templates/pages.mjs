@@ -593,10 +593,18 @@ ${PageHero({
     }</p>
 
     <h2>Cookies</h2>
-    <p>This website does not set advertising cookies and does not use session replay. Any cookie added in future will be described here before it is enabled.</p>
+    <p>${
+      siteConfig.googleAds && siteConfig.googleAds.tagId
+        ? 'This website uses the Google Ads tag to measure whether a visit that started from a Google advertisement led to a phone call or a service request. The tag sets Google cookies for that purpose. No session replay is used, and the measurement does not include the content of your request.'
+        : 'This website does not set advertising cookies and does not use session replay. Any cookie added in future will be described here before it is enabled.'
+    }</p>
 
     <h2>Third party services</h2>
-    <p>Form delivery relies on a form processing service. That provider receives the contents of your request in order to deliver it. The provider name should be listed here once the form endpoint is connected.</p>
+    <p>${
+      siteConfig.formEndpoint
+        ? 'Form delivery relies on a form processing service. That provider receives the contents of your request in order to deliver it.'
+        : 'The service request form opens your own email application with the request filled in. Nothing is stored on this website and no form processing service is involved; the email is sent by you, from your own account.'
+    }</p>
 
     <h2>Retention</h2>
     <p>Service request records are kept for as long as they are needed to quote, schedule, perform and support the work, and to meet business record keeping needs.</p>
