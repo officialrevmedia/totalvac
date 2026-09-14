@@ -231,6 +231,17 @@
     });
   }
 
+  /* ------------------------------------------------- Google Ads conversions */
+  var adsConfig = (window.TOTALVAC_CONFIG && window.TOTALVAC_CONFIG.googleAds) || {};
+  var adsConversion = function (label) {
+    if (!adsConfig.tagId || !label || typeof window.gtag !== 'function') return;
+    window.gtag('event', 'conversion', { send_to: adsConfig.tagId + '/' + label });
+  };
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest ? event.target.closest('a[href^="tel:"]') : null;
+    if (link) adsConversion(adsConfig.phoneClickLabel);
+  });
+
   /* ------------------------------------------------------------------ forms */
   var form = document.querySelector('[data-service-form]');
   if (!form) return;
@@ -349,13 +360,48 @@
     }
 
     if (!config.formEndpoint) {
+      /* No form backend: open the visitor's email app with the request filled in. */
+      if (!config.email) {
+        setStatus('error', 'Please call to place the request while setup is completed.');
+        return;
+      }
+      var value = function (name) {
+        var el = form.querySelector('[name="' + name + '"]');
+        if (!el) return '';
+        if (el.type === 'radio') {
+          var checked = form.querySelector('[name="' + name + '"]:checked');
+          return checked ? checked.value : '';
+        }
+        return el.value || '';
+      };
+      var lines = [
+        ['Name', value('name')],
+        ['Company or property', value('company')],
+        ['Phone', value('phone')],
+        ['Email', value('email')],
+        ['Service address', value('address')],
+        ['Service needed', value('service')],
+        ['Material or liquid', value('material')],
+        ['Site access', value('access')],
+        ['Preferred date', value('preferred_date')],
+        ['Urgency', value('urgency')],
+        ['Message', value('message')]
+      ];
+      var body = lines
+        .filter(function (pair) { return pair[1]; })
+        .map(function (pair) { return pair[0] + ': ' + pair[1]; })
+        .join('\n');
+      var subject = 'Service request: ' + (value('service') || 'TotalVac') + (value('company') ? ' for ' + value('company') : '');
+      var mailto =
+        'mailto:' + config.email +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body + '\n\nSent from totalvacsolutions.com');
+      adsConversion(adsConfig.formSubmitLabel);
       setStatus(
-        'error',
-        'This form is not connected to a delivery address yet, so the request was not sent. ' +
-          (config.email
-            ? 'Please email ' + config.email + ' with these details.'
-            : 'Please call to place the request while setup is completed.')
+        'success',
+        'Your email app should now open with the request filled in. Press send to deliver it. If nothing opened, email ' + config.email + ' or call ' + (config.phone || 'us') + '.'
       );
+      window.location.href = mailto;
       return;
     }
 
@@ -372,6 +418,7 @@
       .then(function (response) {
         if (!response.ok) throw new Error('Request failed');
         form.reset();
+        adsConversion(adsConfig.formSubmitLabel);
         setStatus(
           'success',
           'Thank you. Your service request has been received. TotalVac will review the details and follow up using the contact information provided.'
